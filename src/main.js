@@ -18,7 +18,10 @@ try { if (localStorage.getItem('icypluto-motion') === 'off') motion = false; } c
 let context, productTrigger;
 let heroExperience, navigation;
 
+let previousScene=-1,previousManaged;
 function activeScene(index, managed = false) {
+  if(index===previousScene&&managed===previousManaged)return;
+  previousScene=index;previousManaged=managed;
   $$('.scene-nav button').forEach((button, i) => {
     button.classList.toggle('active', i === index);
     if (i === index) button.setAttribute('aria-current', 'step');

@@ -167,3 +167,7 @@
  .ph-preview-description{font-size:9px;line-height:1.45;margin-top:6px;}
  .ph-explore{font-size:9px;margin-top:6px;padding-top:5px;}
 }}
+
+// Composite the looping shimmer instead of repainting a full-width text gradient.
+.hero.pluto-hero .ph-icy,.hero.pluto-hero .ph-pluto-letters{background-position:50% 0;will-change:opacity;}
+@keyframes ph-outline-shimmer{0%,100%{opacity:.66;}50%{opacity:1;}}

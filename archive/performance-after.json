@@ -1,0 +1,19 @@
+{
+  "hero": {
+    "seconds": 1.8381000000238419,
+    "glDraws": 28,
+    "rafCallbacks": 14,
+    "textureSizes": []
+  },
+  "landing": {
+    "seconds": 1.9178999999761581,
+    "glDraws": 0,
+    "rafCallbacks": 2,
+    "textureSizes": [
+      [
+        4096,
+        2048
+      ]
+    ]
+  }
+}
