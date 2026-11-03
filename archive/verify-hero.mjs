@@ -1,0 +1,45 @@
+import puppeteer from 'file:///C:/Users/madha/AppData/Roaming/npm/node_modules/lighthouse/node_modules/puppeteer-core/lib/esm/puppeteer/puppeteer-core.js';
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const out='E:/IcyPluto new page revamp/archive/hero-verification';
+await fs.mkdir(out,{recursive:true});
+const browser=await puppeteer.launch({executablePath:'C:/Users/madha/AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe',headless:true,args:['--no-sandbox','--enable-webgl','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+try {
+const page=await browser.newPage(); const errors=[];
+page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+await page.setViewport({width:1440,height:900,deviceScaleFactor:1});
+await page.goto('http://localhost:5173/',{waitUntil:'networkidle0'});
+await new Promise(r=>setTimeout(r,2300));
+await page.screenshot({path:out+'/desktop-pluto.png'});
+console.log('Initial',await page.evaluate(()=>({title:document.title,h1:document.querySelectorAll('h1').length,fallback:document.querySelector('.pluto-hero').classList.contains('ph-no-webgl'),canvas:document.querySelector('.ph-gl').getBoundingClientRect().toJSON(),word:document.querySelector('.ph-word').getBoundingClientRect().toJSON()})));
+await page.click('[data-hero-step="1"]');await new Promise(r=>setTimeout(r,1500));
+await page.hover('[data-hero-site="1"]'); await new Promise(r=>setTimeout(r,300));
+assert.equal(await page.$eval('.ph-preview-title',e=>e.textContent),'GEO');
+await page.screenshot({path:out+'/desktop-capabilities.png'});
+await page.click('[data-hero-site="1"]');await new Promise(r=>setTimeout(r,2800));
+assert.equal(await page.$eval('.ph-booking',e=>e.hidden),false);
+assert.equal(await page.$eval('.ph-destination strong',e=>e.textContent),'THE CONVERSATION.');
+await page.screenshot({path:out+'/desktop-landing.png'});
+await page.select('select[name="hero-focus"]','2');
+await page.type('input[name="hero-website"]','https://example.com');
+await page.click('.ph-booking button');
+assert.equal(await page.$eval('#contact-dialog',e=>e.open),true);
+assert.equal(await page.$eval('#contact-form [name="website"]',e=>e.value),'https://example.com');
+await page.click('#contact-dialog .dialog-close');
+await page.waitForFunction(()=>!document.body.classList.contains('modal-open'));
+await page.mouse.move(800,500);await page.mouse.wheel({deltaY:800});await new Promise(r=>setTimeout(r,1800));
+console.log('Scroll status',await page.evaluate(()=>({y:scrollY,body:getComputedStyle(document.body).overflow,html:getComputedStyle(document.documentElement).overflow,stage:document.querySelector('[aria-current=step]').dataset.heroStep,height:document.documentElement.scrollHeight,dialog:!!document.querySelector('dialog[open]')})));
+assert.ok(await page.evaluate(()=>scrollY)>0,'Stage 3 must release page scroll');
+await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}]);
+await page.setViewport({width:390,height:844,deviceScaleFactor:1});await page.reload({waitUntil:'networkidle0'});await page.evaluate(()=>scrollTo(0,0));await new Promise(r=>setTimeout(r,500));
+await page.screenshot({path:out+'/mobile-pluto.png'});
+await page.click('[data-hero-step="1"]');await new Promise(r=>setTimeout(r,100));
+await page.screenshot({path:out+'/mobile-capabilities.png'});
+await page.click('[data-hero-site="0"]');await new Promise(r=>setTimeout(r,100));
+await page.screenshot({path:out+'/mobile-landing.png'});
+assert.equal(await page.$eval('.ph-booking',e=>e.hidden),false);
+assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'No horizontal overflow');
+console.log('Errors:',errors);assert.equal(errors.length,0);
+console.log('PASS: desktop + mobile, real WebGL, capability selection, landing, demo prefill, scroll release, reduced motion.');
+} finally {await browser.close()}
+

@@ -1,0 +1,228 @@
+/* A single type family and a readable scale across the whole page. */
+:root {
+  font-family: Manrope, Arial, sans-serif;
+  color: #fff;
+  --muted: #c1cadb;
+  --line: rgba(187, 205, 242, .22);
+}
+
+body { font-size: 16px; line-height: 1.6; }
+h1, h2, h3, h4, em, .serif-word, .manifesto p, .cst-letter,
+.cst-planet, .community-invite > span, .metric strong {
+  font-family: Manrope, Arial, sans-serif;
+  font-style: normal;
+}
+h1, h2, h3 { color: #fff; font-weight: 800; }
+em { color: inherit; font-weight: inherit; }
+.section h2 em { font-size: inherit; }
+.desktop-nav { font-size: 14px; font-weight: 600; color: #d5deef; }
+.header .button { font-size: 14px; font-weight: 700; }
+.button { font-size: 15px; font-weight: 800; min-height: 56px; }
+.text-link { font-size: 14px; font-weight: 700; color: #dae5ff; }
+
+/* The hero leads with the product, without an extra title above it. */
+.hero { padding-top: 170px; }
+.hero-copy { margin-top: 0; max-width: 740px; }
+.hero h1 {
+  font-size: clamp(68px, 6.8vw, 110px);
+  font-weight: 800;
+  letter-spacing: -.055em;
+  line-height: 1.04;
+}
+.hero-accent { color: #a9c6ff; }
+.hero-copy > p {
+  color: #d0daec;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.65;
+  margin-top: 30px;
+}
+.hero-actions { margin-top: 30px; gap: 28px; }
+.hero-copy, .story-content { text-shadow: 0 2px 25px #05070b; }
+.planet-label { font-size: 11px; font-weight: 700; }
+.planet-label small { font-size: 12px; color: #bdcbe3; }
+.scroll-cue { font-size: 10px; letter-spacing: 1px; color: #c5d3ed; }
+.planet-stats strong { font-weight: 700; color: #fff; }
+.planet-stats strong span { color: #d3dff4; font-size: 12px; }
+.planet-stats small { font-size: 9px; color: #b7c8e5; letter-spacing: .7px; }
+.model-band > span { color: #bdcbe3; font-size: 11px; letter-spacing: 1px; }
+.model-names > span { font-size: 21px; font-weight: 700; color: #e1e8f5; }
+.band-end:empty { display: none; }
+
+/* Content hierarchy: one clear heading, then useful supporting text. */
+.section { padding-block: 100px; }
+.section h2 {
+  font-size: clamp(40px, 4.4vw, 68px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.045em;
+}
+.orbit-copy > p, .split-heading > p, .framework-intro > p,
+.story-content p, .cst-card p, .community-card p {
+  color: #c0cce1;
+  font-size: 16px;
+  line-height: 1.75;
+  font-weight: 500;
+}
+.orbit-copy > p { max-width: 430px; }
+.orbit-copy > p + p { font-weight: 700; color: #e2ebff; }
+.story-switch { font-size: 10px; gap: 16px; }
+.old-rule { color: #a0aec6; }
+.story-switch strong { color: #d1e0ff; font-weight: 800; }
+.orbit-node { font-size: 14px; font-weight: 700; }
+.orbit-node i { font-size: 10px; }
+.orbit-core > span { font-size: 9px; font-weight: 800; letter-spacing: .6px; }
+.orbit-caption { font-size: 10px; color: #bccce8; letter-spacing: .8px; }
+.philosophy { padding-bottom: 70px; border-bottom: 1px solid var(--line); }
+.platform { padding-top: 95px; }
+.split-heading { align-items: flex-end; }
+.split-heading > p { max-width: 410px; }
+.framework-intro { text-align: left; }
+.cst-layout { margin-top: 45px; }
+.cst-letter { font-weight: 800; font-size: 48px; color: #c0d4ff; }
+.cst-card h3 { font-size: 26px; letter-spacing: -.035em; font-weight: 800; }
+.cst-card p { font-size: 15px; max-width: 380px; }
+.cst-card .eyebrow, .card-tag, .community-card .eyebrow { display: none; }
+.cst-card h3 { margin-top: 0; }
+.shield-label { font-size: 10px; font-weight: 800; letter-spacing: .8px; }
+.cst-caption { font-size: 10px; color: #bdcce7; }
+.cst-planet { font-size: 37px; font-weight: 800; }
+.story-content { padding-block: 40px; }
+.story-content p { max-width: 430px; }
+.story-content > .text-link { font-size: 14px; }
+.story-planet-label small { font-size: 10px; color: #b9cceb; }
+.community-card h3 { font-size: 23px; font-weight: 800; margin-top: 0; }
+.community-card p { font-size: 15px; min-height: 104px; }
+.community-card-copy { padding: 28px 24px; }
+.resource-link { font-size: 13px; font-weight: 700; }
+.community-art > small { font-size: 9px; color: #ccd9ef; letter-spacing: .7px; }
+.summit-art > span { font-weight: 800; }
+.academy-art > span { font-weight: 800; }
+.academy-art em { font-size: 40px; font-weight: 800; letter-spacing: -1.5px; }
+.community-invite > span { font-size: 20px; font-weight: 700; color: #cfddf5; }
+.final-cta { min-height: 650px; }
+.final-cta h2 { font-size: clamp(48px, 6vw, 90px); margin-top: 0; }
+.final-cta > p { font-size: 15px; color: #bdcde9; }
+
+/* The product illustration must remain legible, even at laptop sizes. */
+.product-tabs button { font-size: 14px; font-weight: 700; color: #bac9e2; }
+.product-tabs button span { font-size: 11px; color: #9db3d7; }
+.product-tabs button[aria-selected=true] { color: #fff; border-bottom-width: 2px; }
+.workspace-mark > span, .side-item > span { font-size: 12px; }
+.workspace-mark small { font-size: 10px; color: #aabbd9; }
+.sidebar-label { font-size: 10px; letter-spacing: .7px; color: #a2b5d6; }
+.side-item { color: #b2c2df; }
+.sidebar-foot { font-size: 8px; color: #bbcae3; letter-spacing: .3px; }
+.product-toolbar { font-size: 11px; color: #aebedd; }
+.demo-badge { font-size: 9px; color: #c2d5ff; }
+.dash-title h3 { font-size: 24px; font-weight: 800; }
+.dash-title p { font-size: 12px; color: #b8c8e4; }
+.date-pill { font-size: 11px; color: #c4d1e9; }
+.metric { padding: 20px 16px; }
+.metric > span { font-size: 12px; color: #c1cfe6; }
+.metric strong { font-size: 34px; font-weight: 800; }
+.metric > b { font-size: 10px; display: block; margin: 6px 0 0; color: #b8ead4; }
+.chart-heading h4, .models-card h4 { font-size: 12px; font-weight: 700; color: #d4e1f7; }
+.chart-heading > span { font-size: 10px; color: #b8c9ec; }
+.chart-axis { font-size: 9px; color: #b1c2e2; }
+.chart-dates { font-size: 8px; color: #b1c2e2; letter-spacing: .3px; }
+.ranking-row { font-size: 11px; color: #d3dff3; }
+.ranking-row small { font-size: 10px; color: #c5d7ff; }
+.demo-note p { font-size: 11px; color: #c2d2ef; }
+.demo-note small { font-size: 8px; color: #a5b9dc; }
+.product-caption > span { font-size: 10px; color: #b5c6e2; letter-spacing: .5px; }
+footer > p { font-size: 13px; color: #bbcbe7; }
+footer > div { font-size: 10px; color: #bbcbe7; }
+footer button { font-size: 12px; }
+dialog h2 { font-weight: 800; font-size: 42px; }
+dialog > p, dialog > div > p { font-size: 15px; color: #c0cfe9; }
+dialog label { font-size: 14px; font-weight: 600; }
+dialog input { font-size: 16px; }
+dialog small { font-size: 12px; color: #acbfdc; }
+#resource-details p { font-size: 14px; }
+
+@media (max-width: 1100px) {
+  .desktop-nav { font-size: 12px; gap: 20px; }
+  .hero h1 { font-size: 78px; }
+  .hero-copy { max-width: 610px; }
+  .hero-copy > p { font-size: 17px; }
+  .section h2 { font-size: 48px; }
+  .product-sidebar { width: 175px; }
+  .metric > span { font-size: 11px; }
+  .metric strong { font-size: 30px; }
+  .dash-title h3 { font-size: 21px; }
+  .dash-bottom { grid-template-columns: 1fr; }
+  .models-card { display: none; }
+  .community-card-copy { padding: 22px 18px; }
+  .community-card h3 { font-size: 19px; }
+  .community-card p { font-size: 14px; }
+  .community-art > small { font-size: 8px; }
+}
+
+@media (max-width: 760px) {
+  .header .button { font-size: 12px; min-height: 40px; }
+  .hero { padding-top: 125px; height: 950px; }
+  .hero-copy { max-width: 560px; }
+  .hero h1 { font-size: clamp(48px, 10.4vw, 74px); letter-spacing: -.055em; }
+  .hero-copy > p { font-size: 16px; margin-top: 24px; }
+  .hero-actions { gap: 20px; flex-wrap: wrap; }
+  .hero-actions .button { font-size: 13px; min-height: 50px; }
+  .hero-actions .text-link { font-size: 12px; }
+  .planet-label { font-size: 9px; bottom: 140px; }
+  .planet-label small { font-size: 10px; }
+  .planet-stats { gap: 18px; }
+  .planet-stats small { max-width: 110px; font-size: 8px; line-height: 1.5; }
+  .planet-stats strong span { font-size: 9px; }
+  .scroll-cue { font-size: 8px; max-width: 100px; }
+  .model-band > span { font-size: 11px; }
+  .model-names > span { font-size: 18px; }
+  .section { padding-block: 65px; }
+  .section h2 { font-size: clamp(34px, 7.8vw, 48px); line-height: 1.12; }
+  .orbit-copy > p, .split-heading > p, .framework-intro > p,
+  .story-content p, .cst-card p { font-size: 16px; }
+  .split-heading > p br, .framework-intro > p br { display: none; }
+  .story-switch { font-size: 9px; gap: 9px; }
+  .orbit-node { font-size: 12px; }
+  .orbit-caption { font-size: 8px; }
+  .product-tabs button { font-size: 12px; }
+  .product-tabs button span { font-size: 10px; }
+  .product-main { padding: 20px 12px; }
+  .product-toolbar { font-size: 9px; }
+  .demo-badge { font-size: 7px; }
+  .dash-title { display: block; }
+  .dash-title h3 { font-size: 21px; max-width: none; }
+  .dash-title p { font-size: 12px; }
+  .date-pill { display: inline-block; font-size: 10px; margin-top: 12px; }
+  .dash-metrics { grid-template-columns: 1fr; gap: 8px; }
+  .metric { display: grid; grid-template-columns: 1fr auto; padding: 12px; align-items: center; }
+  .metric > span { font-size: 12px; min-height: 0; }
+  .metric strong { font-size: 28px; margin: 0; }
+  .metric > b { grid-column: 1 / -1; font-size: 11px; margin: 2px 0 0; }
+  .chart-heading h4 { font-size: 11px; }
+  .chart-heading > span { font-size: 9px; }
+  .chart-dates { font-size: 8px; }
+  .demo-note { flex-wrap: wrap; }
+  .demo-note p { font-size: 11px; }
+  .demo-note small { font-size: 8px; }
+  .product-caption { flex-direction: column; gap: 14px; }
+  .product-caption > span { font-size: 10px; max-width: none; }
+  .product-caption .text-link { font-size: 13px; }
+  .cst-caption { font-size: 8px; }
+  .cst-card h3 { font-size: 23px; }
+  .cst-letter { font-size: 40px; }
+  .story { padding-top: 350px; min-height: 850px; }
+  .story-content { padding-top: 35px; }
+  .community-card h3 { font-size: 24px; }
+  .community-card p { font-size: 16px; min-height: 0; }
+  .community-card-copy { padding: 26px; }
+  .community-art > small { font-size: 9px; }
+  .community-invite > span { font-size: 19px; }
+  .community-invite .text-link { font-size: 13px; }
+  .final-cta { min-height: 520px; }
+  .final-cta h2 { font-size: clamp(37px, 8.5vw, 60px); }
+  .final-cta .button { font-size: 14px; }
+  .final-cta > p { font-size: 14px; }
+  footer > div { font-size: 9px; gap: 14px; }
+  footer > div button { font-size: 11px; }
+  dialog h2 { font-size: 36px; }
+}

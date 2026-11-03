@@ -1,0 +1,169 @@
+.hero.pluto-hero{position:relative;height:100svh;min-height:680px;max-height:none;padding:0;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 50% 48%,#40342b88,transparent 65%);color:white;--ph-accent:#d3b59b;>canvas,>.ph-sky,>.ph-land,>.ph-fore,>.ph-fog,>.ph-scrim{position:absolute;inset:0;width:100%;height:100%}.ph-word{position:absolute;left:50%;top:50%;z-index:2;font-weight:800;font-size:min(26.5vw,46vh);line-height:.8;letter-spacing:-.055em;white-space:nowrap;pointer-events:none;will-change:transform,clip-path;color:#fff}.ph-eyebrow{position:absolute;z-index:3;left:50%;top:50%;font-size:clamp(12px,1.3vw,20px);letter-spacing:.07em;font-weight:600;white-space:nowrap;pointer-events:none;color:#f1ece6}.ph-gl{z-index:4;touch-action:pan-y;cursor:grab;outline-offset:-8px;&.dragging{cursor:grabbing}}.ph-dust{z-index:5;pointer-events:none}.ph-sky{z-index:0;background:radial-gradient(ellipse at 50% 50%,#65514326,transparent 65%);pointer-events:none}.ph-flare{position:absolute;z-index:1;width:40vmin;height:40vmin;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,#efdfc78a,#a18b6833 35%,transparent 72%)}
+.ph-pin{position:absolute;left:0;top:0;z-index:6;display:flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.12em;white-space:nowrap;pointer-events:none;i{display:block;width:9px;height:9px;border-radius:50%;background:white;box-shadow:0 0 0 5px #d3b59b55,0 0 0 11px #ffffff1c}}
+.ph-word-one{position:absolute;top:0;left:50%;z-index:6;font-size:min(7.3vw,15vh);font-weight:800;letter-spacing:-.05em;line-height:1;white-space:nowrap;color:#ffffffb3;pointer-events:none}
+.ph-capability-panel{position:absolute;inset:0;z-index:7;pointer-events:none}.ph-sites{position:absolute;right:6%;top:50%;transform:translateY(-50%);list-style:none;margin:0;padding:0;display:grid;gap:35px;pointer-events:auto;&::before{content:'';position:absolute;right:5px;top:15px;bottom:20px;width:1px;background:#ffffff45}button{position:relative;padding:0 30px 0 0;text-align:right;background:none;color:#ece9e7;transition:color .25s;span{display:block;font-size:clamp(20px,2vw,30px);font-weight:800;letter-spacing:-.03em}small{display:block;font-size:8px;letter-spacing:.02em;color:#b9b4b0;margin-top:3px}i{position:absolute;right:1px;top:16px;width:9px;height:9px;background:white;border-radius:50%;transition:transform .3s,box-shadow .3s}&.on{color:#fff;i{transform:scale(1.3);box-shadow:0 0 0 6px #ffffff26}}}}
+.ph-preview{position:absolute;right:calc(6% + 235px);width:clamp(180px,17vw,260px);top:35%;border:1px solid #ffffff22;background:#100e0de6;border-radius:7px;padding:0 18px 17px;pointer-events:auto;box-shadow:0 20px 50px #0004;overflow:hidden;.ph-preview-image{height:115px;margin:0 -18px 16px;background:url('/assets/pluto-nasa.jpg') 50% 35% / cover}.ph-preview-title{font-size:32px;letter-spacing:-.045em;line-height:1.2;margin-top:9px}.ph-preview-description{font-size:11px;color:#c3bdb7;line-height:1.8;margin-top:8px;min-height:58px}.ph-explore{display:flex;align-items:center;justify-content:space-between;width:100%;border-top:1px solid #ffffff22;margin-top:14px;padding:13px 0 0;background:none;font-size:11px;font-weight:800;span{font-size:19px}}}
+.ph-region{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;font-size:clamp(34px,5vw,80px);font-weight:800;letter-spacing:.02em;pointer-events:none}
+.ph-land{z-index:8;background:url('/assets/pluto-landing.webp') 50% 50% / cover no-repeat;will-change:transform;pointer-events:none;opacity:0}.ph-fore{z-index:10;background:url('/assets/pluto-foreground.webp') 50% 100% / cover no-repeat;will-change:transform;pointer-events:none;opacity:0}.ph-destination{position:absolute;left:0;right:0;top:0;text-align:center;z-index:9;pointer-events:none;>span{display:block;font-size:clamp(11px,1.3vw,20px);font-weight:600;letter-spacing:.11em;color:#f1ede8}strong{display:block;font-weight:800;font-size:min(9.3vw,16vh);line-height:1.08;letter-spacing:-.055em;color:#fff7ee;margin-top:13px;white-space:nowrap}p{font-size:clamp(12px,1.25vw,18px);color:#e4d7c8;margin-top:14px}}
+.ph-fog{z-index:11;background:radial-gradient(ellipse at 50% 45%,#f1e9dc,#c9c0ae 60%,#5e5c59);pointer-events:none;opacity:0}.ph-scrim{z-index:13;height:150px;background:linear-gradient(#060708a6,transparent);pointer-events:none}
+.ph-booking{position:absolute;z-index:12;left:50%;bottom:10vh;width:min(86vw,960px);display:grid;grid-template-columns:1fr 1fr 1fr 64px;background:#f8f7f3;color:#201d1a;border-radius:5px;overflow:hidden;box-shadow:0 20px 70px #0006;>label,>div{display:block;padding:16px 20px;border-right:1px solid #dedbd5;font-size:9px;font-weight:600;letter-spacing:.04em;color:#7c746b}input,select{display:block;width:100%;margin-top:7px;font:800 13px Manrope,Arial,sans-serif;color:#28231e;border:0;background:transparent;outline-offset:4px;padding:0;min-height:20px;letter-spacing:0;color-scheme:light}select{cursor:pointer;option{background:#f8f7f3;color:#28231e}}>div>span{display:block}strong{font-size:11px;letter-spacing:0;display:block;margin-top:8px;font-weight:800;color:#28231e}>button{background:#b28c6d;color:#fff;font-size:25px;transition:background .25s;&:hover{background:#926b4d}}}
+.ph-intro-copy{position:absolute;left:6%;bottom:12%;z-index:6;max-width:440px;pointer-events:none;>p{font-size:13px;font-weight:800;color:#ede9e3}>span{display:block;font-size:11px;color:#bdb5ae;margin-top:7px;line-height:1.8}}
+.ph-rail{position:absolute;left:2.7%;top:50%;transform:translateY(-50%);z-index:20;display:grid;gap:20px;button{display:flex;align-items:center;gap:11px;background:none;padding:3px 0;i{display:block;width:6px;height:6px;border-radius:50%;background:#ffffff50;transition:background .3s,transform .3s}span{font-size:8px;color:#b7b4af;opacity:0;transition:opacity .3s}&.on{i{background:white;transform:scale(1.4)}span{opacity:1}}}}
+.ph-controls{position:absolute;right:6%;bottom:12%;z-index:14;display:flex;align-items:center;gap:25px;button{background:none;font-size:11px;color:#ddd7d0;padding:8px 0;border-bottom:1px solid #ffffff40}.ph-next{display:flex;align-items:center;gap:22px;font-weight:800;color:white;span{font-size:21px}}}
+.ph-skip{position:absolute;left:6%;bottom:29px;z-index:14;font-size:9px;color:#c1bbb5;padding:5px 0}.ph-hint{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:7;font-size:9px;letter-spacing:.05em;color:#b9afa5;white-space:nowrap;pointer-events:none}.ph-image-note{position:absolute;bottom:30px;right:6%;z-index:14;font-size:7px;color:#c4bcb2;letter-spacing:.04em}.ph-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.ph-fallback{position:absolute;width:44vmin;height:44vmin;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;border-radius:50%;background:url('/assets/pluto-nasa.jpg') 50% 50% / 228.6% 128.6%;display:none}.ph-no-webgl .ph-fallback{display:block}.ph-no-webgl .ph-gl{opacity:0}
+}
+@media(max-width:1000px){.hero.pluto-hero{.ph-sites{right:5%;gap:30px;button{small{max-width:140px;font-size:7px}span{font-size:24px}}}.ph-preview{right:calc(5% + 185px);width:200px}.ph-word-one{font-size:8vw}.ph-intro-copy{max-width:350px;>p{font-size:12px}>span{font-size:10px}}}}
+@media(max-width:760px){.hero.pluto-hero{height:100svh;min-height:760px;max-height:none;.ph-word{font-size:29vw}.ph-eyebrow{font-size:11px;letter-spacing:.04em}.ph-word-one{font-size:13vw}.ph-sites{right:6%;top:auto;bottom:20%;transform:none;gap:20px;button{span{font-size:20px}small{font-size:6px;max-width:120px}i{top:13px;width:7px;height:7px}}}.ph-preview{left:6%;right:auto;top:auto!important;bottom:20%;width:41%;padding:0 13px 12px;.ph-preview-image{height:75px;margin:0 -13px 12px}.ph-preview-title{font-size:27px;margin-top:6px}.ph-preview-description{font-size:9px;min-height:50px;margin-top:5px}.ph-explore{font-size:9px;margin-top:10px;padding-top:10px}}.ph-rail{left:6%;top:120px;transform:none;display:flex;gap:17px;button{gap:7px;span{font-size:7px}}}.ph-intro-copy{left:6%;right:6%;bottom:18%;max-width:350px;>p{font-size:12px;line-height:1.8}>span{font-size:10px;max-width:320px}}.ph-controls{bottom:9%;right:6%;left:6%;justify-content:flex-end;gap:24px;button{font-size:10px}.ph-next{font-size:11px;gap:16px}}.ph-hint{bottom:32%;font-size:8px;max-width:90%;white-space:normal;text-align:center}.ph-skip{bottom:25px;font-size:8px}.ph-destination{>span{font-size:9px;letter-spacing:.08em}strong{font-size:11.5vw;line-height:1.05;white-space:normal;max-width:90%;margin:12px auto 0}p{font-size:11px;margin-top:13px}}.ph-fore{background-size:auto 100%;background-position:50% 100%}.ph-booking{grid-template-columns:1fr 1fr;width:88vw;bottom:13%;>label,>div{padding:12px 14px;font-size:8px;border-bottom:1px solid #dedbd5}input,select{font-size:11px;margin-top:6px}strong{font-size:10px}>button{font-size:24px;min-height:53px}}.ph-image-note{font-size:6px;bottom:27px;max-width:130px;text-align:right}.ph-fallback{width:64vw;height:64vw}}}
+@media(prefers-reduced-motion:reduce){.hero.pluto-hero *{transition-duration:.01ms!important}}
+.hero.pluto-hero{.ph-word{transform:translate(-50%,-50%);opacity:0}.ph-pin,.ph-word-one,.ph-region,.ph-destination,.ph-eyebrow{opacity:0}.ph-image-note{bottom:7px}}
+@media(max-width:760px){.hero.pluto-hero{.ph-hint{display:none}.ph-intro-copy{bottom:14%;>span{display:none}}.ph-booking{bottom:14%}}}
+
+// Keep landing typography legible where the icy horizon crosses the letters.
+.hero.pluto-hero .ph-destination {
+  strong {
+    color: #fffaf2;
+    -webkit-text-stroke: clamp(1px, .13vw, 2px) #111820;
+    paint-order: stroke fill;
+    text-shadow:
+      1px 1px 0 #111820,
+      2px 2px 0 #111820,
+      3px 3px 0 #111820,
+      4px 4px 0 #111820,
+      0 8px 22px #0009;
+  }
+  > span, > p {
+    color: #fffaf2;
+    text-shadow: 0 1px 2px #05090d, 0 2px 9px #05090dcc;
+  }
+}
+@media (max-width:760px) {
+  .hero.pluto-hero .ph-destination strong {
+    text-shadow: 1px 1px 0 #111820, 2px 2px 0 #111820, 0 5px 14px #0009;
+  }
+}
+
+// The same landscape, clipped at its actual ridge, occludes the headline.
+.hero.pluto-hero {
+  .ph-ridge { position:absolute;inset:0;width:100%;height:100%;z-index:10;pointer-events:none;opacity:0;will-change:transform; }
+  .ph-fore { z-index:11; }
+  .ph-fog { z-index:12; }
+  .ph-landing-caption { position:absolute;left:0;right:0;top:0;z-index:11;text-align:center;pointer-events:none;opacity:0;font-size:clamp(12px,1.25vw,18px);color:#fffaf2;text-shadow:0 1px 2px #05090d,0 2px 9px #05090dcc; }
+  .ph-destination strong { text-shadow:0 2px 8px #0006; }
+}
+@media(max-width:760px){.hero.pluto-hero .ph-landing-caption{font-size:11px;}}
+
+// One wordmark: ICY appears centered, then PLUTO opens from its left edge.
+.hero.pluto-hero {
+  .ph-word { display:flex;align-items:center;font-size:min(18vw,34vh);letter-spacing:-.065em;line-height:.9; }
+  .ph-icy,.ph-pluto-letters { display:block;flex-shrink:0; }
+  .ph-pluto-wrap { display:block;width:0;overflow:visible; }
+  .ph-pluto-letters { width:max-content;will-change:transform,clip-path; }
+  .ph-globe-markers { position:absolute;inset:0;z-index:6;pointer-events:none; }
+  .ph-pin { pointer-events:auto;background:none;color:white;border:0;padding:0;font:800 8px Manrope,Arial,sans-serif;letter-spacing:.06em;text-shadow:0 1px 4px #000;gap:10px;opacity:0;cursor:pointer; }
+  .ph-pin i { width:7px;height:7px;flex-shrink:0;background:#f6f1ff;box-shadow:0 0 0 5px #5d17eb24,0 0 15px #5d17eb45; }
+  .ph-pin:hover span,.ph-pin:focus-visible span { color:#dacbff; }
+  .ph-pin[data-globe-site="2"] { flex-direction:row-reverse;margin-left:-100px; }
+  .ph-land,.ph-ridge,.ph-fore { filter:url(#pluto-lavender); }
+  .ph-sky { background:radial-gradient(ellipse at 65% 48%,#5d17eb0b,transparent 62%),radial-gradient(ellipse at 50% 50%,#65514320,transparent 65%); }
+  .ph-flare { background:radial-gradient(closest-side,#dfd0f36b,#5d17eb0b 42%,transparent 72%); }
+  .ph-sites button.on i { box-shadow:0 0 0 6px #5d17eb24; }
+  .ph-booking>button { background:#78658c; &:hover { background:#695478; } }
+}
+@media(max-width:760px){.hero.pluto-hero{.ph-word{font-size:18vw}.ph-pin{font-size:6px;gap:6px}.ph-pin[data-globe-site="2"]{margin-left:-78px}}}
+
+// Open letter outlines with a slow frost-light sweep across the wordmark.
+.hero.pluto-hero {
+  .ph-word { line-height:1; }
+  .ph-icy,.ph-pluto-letters {
+    padding-inline-end:.065em;
+    -webkit-text-stroke:clamp(1px,.105vw,1.8px) #e7e1f3;
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+    background-image:linear-gradient(110deg,#ffffff05 36%,#ffffff12 43%,#eee5ffb3 49%,#b994ef59 52%,#ffffff05 60%);
+    background-size:280% 100%;
+    background-position:180% 0;
+    -webkit-background-clip:text;
+    background-clip:text;
+    animation:ph-outline-shimmer 8s ease-in-out infinite;
+  }
+  .ph-pluto-wrap { flex-shrink:0; }
+}
+@keyframes ph-outline-shimmer {
+  0%,12%{background-position:180% 0;}
+  72%,100%{background-position:-80% 0;}
+}
+@media(prefers-reduced-motion:reduce){.hero.pluto-hero .ph-icy,.hero.pluto-hero .ph-pluto-letters{animation:none;background-position:50% 0;}}
+.motion-off .pluto-hero .ph-icy,.motion-off .pluto-hero .ph-pluto-letters{animation:none;background-position:50% 0;}
+
+.hero.pluto-hero .ph-word{width:max-content;max-width:none;}
+
+@media(min-width:761px){.hero.pluto-hero .ph-word{font-size:min(18.7vw,35vh);}}
+// Original photo-card design, with a shorter image and tighter spacing.
+.hero.pluto-hero .ph-preview {
+  padding:0 16px 12px;
+  .ph-preview-image{height:64px;margin:0 -16px 10px;}
+  .ph-preview-title{font-size:28px;margin-top:5px;}
+  .ph-preview-description{min-height:0;margin-top:6px;line-height:1.65;}
+  .ph-explore{margin-top:10px;padding-top:9px;}
+}
+@media(max-width:760px){.hero.pluto-hero .ph-preview{
+  padding:0 12px 10px;
+  .ph-preview-image{height:44px;margin:0 -12px 8px;}
+  .ph-preview-title{font-size:24px;margin-top:4px;}
+  .ph-preview-description{min-height:0;margin-top:5px;line-height:1.6;}
+  .ph-explore{margin-top:8px;padding-top:7px;}
+}}
+
+// Black-space hero atmosphere; terrain keeps its existing purple lighting.
+.hero.pluto-hero {
+  background:#020205;
+  .ph-sky{background:radial-gradient(ellipse at 30% 66%,#21072b26,transparent 70%);}
+  .ph-sky::after{content:'';position:absolute;inset:0;opacity:.8;background-image:radial-gradient(1px 1px at 31px 47px,#ffffffcc 70%,transparent),radial-gradient(1px 1px at 127px 83px,#f3eaffb3 70%,transparent),radial-gradient(1.5px 1.5px at 191px 173px,#ffffffbf 70%,transparent),radial-gradient(.8px .8px at 73px 211px,#e9ddffb3 70%,transparent);background-size:307px 281px,439px 367px,613px 479px,229px 347px;}
+  .ph-flare{background:radial-gradient(closest-side,#e3e9f040,#8095b00c 35%,transparent 72%);}
+  // Shared grading keeps the background, occluding ridge, and foreground seamless.
+  .ph-land,.ph-ridge,.ph-fore{filter:saturate(.24) brightness(.72) contrast(1.08);}
+  .ph-fog{background:radial-gradient(ellipse at 50% 45%,#f2eaff,#cdc0e9 60%,#695581);}
+}
+
+.site-header .brand>img{filter:drop-shadow(0 0 6px #d4bcff55);}
+
+// Reference-style moving glow particles belong to this section alone.
+.hero.pluto-hero {
+  #starfield{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;}
+  .ph-sky::after{display:none;}
+}
+
+// Larger capability headings and readable secondary labels, with compact previews.
+.hero.pluto-hero {
+ .ph-sites{gap:32px;&::before{top:34px;bottom:40px;}button{padding-right:38px;span{font-size:clamp(48px,5.5vw,80px);line-height:1;letter-spacing:-.05em;}small{font-size:14px;line-height:1.45;max-width:250px;margin-top:9px;color:#c2becb;}i{top:clamp(24px,2.75vw,40px);width:10px;height:10px;}}}
+ .ph-preview{padding:14px 16px 11px;
+  .ph-preview-image{position:absolute;right:13px;top:12px;width:46px;height:46px;margin:0;border-radius:50%;background-size:228.6% 128.6%;background-position:50% 50%;}
+  
+  .ph-preview-title{font-size:36px;line-height:1.05;margin-top:5px;max-width:calc(100% - 52px);}
+  .ph-preview-description{font-size:11px;line-height:1.55;margin-top:8px;min-height:0;}
+  .ph-explore{margin-top:9px;padding-top:8px;font-size:11px;span{font-size:16px;}}
+ }
+}
+@media(min-width:761px) and (max-width:1100px){.hero.pluto-hero .ph-sites button{span{font-size:50px;}small{font-size:12px;max-width:210px;}i{top:25px;}}}
+@media(max-width:760px){.hero.pluto-hero{
+ .ph-sites{gap:22px;button{padding-right:25px;span{font-size:36px;line-height:1;}small{font-size:10px;line-height:1.4;max-width:135px;margin-top:7px;}i{top:18px;width:8px;height:8px;}}&::before{top:20px;bottom:34px;}}
+ .ph-preview{padding:11px 12px 9px;.ph-preview-image{width:32px;height:32px;right:10px;top:10px;}.ph-preview-title{font-size:28px;max-width:calc(100% - 35px);margin-top:4px;}.ph-preview-description{font-size:9px;line-height:1.5;margin-top:7px;}.ph-explore{font-size:9px;margin-top:8px;padding-top:7px;}}
+}}
+@media(max-width:360px){.hero.pluto-hero .ph-sites button{span{font-size:32px;}small{font-size:9px;max-width:118px;}}}
+
+// Smaller previews without the numeric eyebrow.
+.hero.pluto-hero .ph-preview{
+ width:clamp(190px,15vw,220px);padding:11px 12px 9px;
+ .ph-preview-title{font-size:30px;margin-top:0;max-width:calc(100% - 40px);}
+ .ph-preview-image{width:34px;height:34px;top:10px;right:11px;}
+ .ph-preview-description{margin-top:7px;font-size:11px;line-height:1.45;}
+ .ph-explore{margin-top:7px;padding-top:6px;font-size:10px;span{font-size:14px;}}
+}
+@media(max-width:760px){.hero.pluto-hero .ph-preview{
+ width:41%;padding:9px 10px 8px;
+ .ph-preview-title{font-size:24px;max-width:calc(100% - 30px);}
+ .ph-preview-image{width:26px;height:26px;top:8px;right:9px;}
+ .ph-preview-description{font-size:9px;line-height:1.45;margin-top:6px;}
+ .ph-explore{font-size:9px;margin-top:6px;padding-top:5px;}
+}}
