@@ -26,6 +26,7 @@ export function initPlutoHero(getMotion, requestDemo) {
   const el = Object.fromEntries(['word','gl','flare','word-one','capability-panel','preview','region','land','ridge','destination','landing-caption','fore','fog','booking','fallback'].map(name => [name, $(`.ph-${name}`)]));
   let w = root.clientWidth || innerWidth, h = root.clientHeight || innerHeight;
   let st = 0, from = 0, target = 0, t0 = 0, duration = 1, selected = 0, frameId, last = 0;
+  const openingStartedAt=performance.now();
   let loadedAt = performance.now(), ready = false, visible = true, dirty = true, disposed = false;
   let focusUntil = 0;
   const globeMarkers = $$('[data-globe-site]');
@@ -35,6 +36,7 @@ export function initPlutoHero(getMotion, requestDemo) {
   let renderer, scene, camera, planet, tilt, spin, surface, atmosphere, texture, contextLost = false, textureWorker;
   let renderScale=1,qualityFrames=0,qualityTotal=0;
   const letters=$('.ph-pluto-letters'),wordWrap=$('.ph-pluto-wrap'),title=$('.ph-destination strong');
+  const openingCopy=$('.ph-opening-copy'),orbit=$('.ph-orbit');
   const controls=$('.ph-controls'),nextButton=$('.ph-next'),backButton=$('.ph-back'),imageNote=$('.ph-image-note');
   let geometry={wordHeight:0,lettersWidth:0,titleTop:0,titleHeight:0,destinationHeight:0};
   function measureGeometry(){geometry={wordHeight:el.word.offsetHeight,lettersWidth:letters.offsetWidth,titleTop:title.offsetTop,titleHeight:title.offsetHeight,destinationHeight:el.destination.offsetHeight};}
@@ -85,7 +87,7 @@ export function initPlutoHero(getMotion, requestDemo) {
     measureGeometry();alignCard();dirty=true;
   }
   function alignCard(){if(w<=760){el.preview.style.left='';el.preview.style.right='';return;}const sites=$('.ph-sites'),button=$$('[data-hero-site]')[selected];el.preview.style.left=`${Math.max(16,sites.getBoundingClientRect().left-root.getBoundingClientRect().left-el.preview.offsetWidth-24)}px`;el.preview.style.right='auto';const ideal=h*.5-sites.offsetHeight*.5+button.parentElement.offsetTop+button.offsetHeight*.5-el.preview.offsetHeight*.5;el.preview.style.top=`${Math.max(170,Math.min(ideal,h*.80-el.preview.offsetHeight))}px`;}
-  function pick(index,announce=false){selected=index;focusUntil=performance.now()+1800;const cap=CAPABILITIES[index];$$('[data-hero-site]').forEach((button,i)=>{button.classList.toggle('on',i===index);button.setAttribute('aria-pressed',String(i===index));});$('.ph-preview-title').textContent=cap.name;$('.ph-preview-description').textContent=cap.description;$('.ph-explore').innerHTML=`Explore ${cap.name} <span>↗</span>`;$('.ph-region').textContent=cap.name;$('.ph-destination strong').textContent=cap.destination;$('.ph-destination-copy').textContent=cap.title;$('[name="hero-focus"]').value=String(index);measureGeometry();alignCard();dirty=true;if(announce)$('.ph-status').textContent=`${cap.name}: ${cap.title}`;}
+  function pick(index,announce=false){const changed=selected!==index;selected=index;if(changed)document.dispatchEvent(new CustomEvent('icypluto:hero-capability',{detail:CAPABILITIES[index].name.toLowerCase()}));focusUntil=performance.now()+1800;const cap=CAPABILITIES[index];$$('[data-hero-site]').forEach((button,i)=>{button.classList.toggle('on',i===index);button.setAttribute('aria-pressed',String(i===index));});$('.ph-preview-title').textContent=cap.name;$('.ph-preview-description').textContent=cap.description;$('.ph-explore').innerHTML=`Explore ${cap.name} <span>↗</span>`;$('.ph-region').textContent=cap.name;$('.ph-destination strong').textContent=cap.destination;$('.ph-destination-copy').textContent=cap.title;$('[name="hero-focus"]').value=String(index);measureGeometry();alignCard();dirty=true;if(announce)$('.ph-status').textContent=`${cap.name}: ${cap.title}`;}
   function go(next){next=Math.max(0,Math.min(2,next));if(next===target)return;from=st;target=next;t0=performance.now();if(next===1)focusUntil=t0+2300;const low=Math.min(from,next),high=Math.max(from,next);duration=getMotion()?Math.max(1,(Math.min(high,1)-Math.min(low,1))*1300+(Math.max(high-1,0)-Math.max(low-1,0))*2500):1;dirty=true;$$('[data-hero-step]').forEach((button,i)=>{button.classList.toggle('on',i===next);if(i===next)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');});$('.ph-status').textContent=next===0?'Pluto. Drag to rotate or explore AI visibility.':next===1?'Explore AEO, GEO, and SEO. Select a capability to land.':`${CAPABILITIES[selected].name}: ${CAPABILITIES[selected].title}. Book a demo or continue to the platform.`;}
   function render(now=0){frameId=requestAnimationFrame(render);if(disposed||document.hidden||!visible)return;const moving=Math.abs(st-target)>.0001;const age=(now-loadedAt)/1000;if(!getMotion()&&!dirty&&!moving)return;const interval=now-last,dt=Math.min(interval/1000,.1)||.016;last=now;
     // Adapt only render resolution after sustained GPU pressure, never texture detail.
@@ -98,11 +100,21 @@ export function initPlutoHero(getMotion, requestDemo) {
     else if(!dragging){if(getMotion()&&age>3.5&&now-lastDrag>1500)yaw+=dt*.24;yaw+=velocity;velocity*=Math.exp(-dt*4);pitch+=(.10-pitch)*(1-Math.exp(-dt*1.2));}
     if(renderer&&!contextLost&&f.b<.78){planet.position.set(f.cx-w/2,h/2-f.cy,0);planet.scale.setScalar(f.radius);tilt.rotation.x=pitch;spin.rotation.y=yaw;surface.material.uniforms.hiDir.value.set(point.x,point.y,point.z);surface.material.uniforms.hi.value=segment(f.a,.15,.6);surface.material.uniforms.hiR.value=f.b>.02?mix(.45,.27,segment(f.b,0,.1)):.45;renderer.render(scene,camera);}
     if(root.classList.contains('ph-no-webgl')){el.fallback.style.width=`${f.radius*2}px`;el.fallback.style.height=`${f.radius*2}px`;el.fallback.style.left=`${f.cx}px`;el.fallback.style.top=`${f.cy}px`;}
-    const wordH=geometry.wordHeight,wordY=f.portrait?f.cy+f.baseRadius*1.04+wordH*.5:h*.55;
-    el.word.style.transform=`translate(calc(-50% - ${f.portrait?0:f.a*w*.08}px),calc(-50% + ${wordY-h*.5-mouseY*6}px))`;el.word.style.clipPath='none';opacity(el.word,f.wordOpacity*f.intro);
-    const reveal=getMotion()?cubicInOut(segment(age,.65,1.9)):1;
-    const wordWidth=`${geometry.lettersWidth*reveal}px`;if(wordWrap.style.width!==wordWidth)wordWrap.style.width=wordWidth;
-    letters.style.clipPath=reveal>=.999?'none':`inset(-20% ${(1-reveal)*100}% -20% -.08em)`;letters.style.transform=`translateX(${(1-reveal)*-32}px)`;
+    // The brand occupies its own column; no part is hidden behind Pluto.
+    const wordY=w<=760?h*.215:h*.45-geometry.wordHeight*.5;
+    el.word.style.transform=`translate(${f.a*-w*.07}px,${wordY-mouseY*5}px)`;
+    const openingAge=(now-openingStartedAt)/1000,openingIntro=getMotion()?cubicOut(segment(openingAge,.05,.65)):1;
+    el.word.style.clipPath='none';opacity(el.word,f.wordOpacity*openingIntro);
+    const reveal=getMotion()?cubicOut(segment(openingAge,.25,1.35)):1;
+    wordWrap.style.width=`${geometry.lettersWidth}px`;
+    letters.style.clipPath='none';letters.style.transform=`translateY(${(1-reveal)*38}px)`;
+    opacity(letters,reveal);
+    opacity(openingCopy,f.wordOpacity*openingIntro);
+    const opening=f.wordOpacity*f.grow;
+    opacity(orbit,opening);
+    orbit.style.left=`${f.cx}px`;orbit.style.top=`${f.cy}px`;
+    orbit.style.width=`${f.baseRadius*2.72}px`;orbit.style.height=`${f.baseRadius*1.14}px`;
+    root.classList.toggle('ph-exploring',st>.05);
     el.flare.style.left=`${f.cx+f.radius*.74}px`;el.flare.style.top=`${f.cy-f.radius*.62}px`;opacity(el.flare,f.grow*.6*(1-segment(f.zoom,0,.35)));
     globeMarkers.forEach((marker,index)=>{
       const [u,v]=markerCoordinates[index],pin=rotatePoint(mapPoint(u,v),yaw,pitch);
@@ -128,6 +140,7 @@ export function initPlutoHero(getMotion, requestDemo) {
     dirty=false;
   }
 
+  listen(document,'icypluto:select-capability',event=>{const index=CAPABILITIES.findIndex(cap=>cap.name.toLowerCase()===event.detail);if(index>=0&&index!==selected)pick(index);});
   globeMarkers.forEach(button=>{listen(button,'click',()=>{pick(Number(button.dataset.globeSite),true);go(1);});listen(button,'focus',()=>{lastDrag=performance.now();});});
   $$('[data-hero-step]').forEach(button=>listen(button,'click',()=>go(Number(button.dataset.heroStep))));
   $$('[data-hero-site]').forEach(button=>{listen(button,'pointerenter',()=>pick(Number(button.dataset.heroSite)));listen(button,'focus',()=>pick(Number(button.dataset.heroSite)));listen(button,'click',()=>{pick(Number(button.dataset.heroSite),true);go(2);});});

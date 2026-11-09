@@ -108,3 +108,83 @@ Changes are being made on the madhav branch. The original NASA/JPL PIA11707 map 
 The hero's 30 FPS limiter is removed. Rendering follows requestAnimationFrame, with adaptive pixel ratio under sustained frame pressure. Layout measurements and element references are cached, the current navigation label is updated only when it changes, and product-scroll state updates only when its active scene changes. The looping text shimmer animates composited opacity instead of repainting a full-width gradient. Hidden globe draws and background particle rendering stop when the landing terrain covers them; continuous full-screen terrain rescaling is removed while pointer parallax remains.
 
 Verification: archive/verify-globe-clarity.mjs checks 4K worker upload, 2K compatibility fallback, controls, landing, no hidden draws or repeated button DOM rebuilding, and reverse transitions. Screenshots are under archive/hero-verification. The local Chromium environment uses SwiftShader software graphics: its frame-rate samples do not establish hardware FPS. Actual display smoothness depends on the user's GPU, refresh rate, and browser.
+
+
+## Earlier capability study (replaced by the continuous world below)
+
+The accepted globe and mountain heroes are retained. The generic overview/AI dashboard carousel below them is replaced with a capability-specific scroll narrative in `src/discovery.js` and `src/discovery.scss`. Hero selection and the SEO/AEO/GEO pills synchronize in both directions. Each journey includes its own introduction, three explanatory chapters, an evolving sticky HTML/SVG instrument, and useful takeaways:
+
+- SEO: SEOMax website scan, content/structure/technical findings, recommended fixes.
+- AEO: question selection, brand/competitor context inside an example answer, content priorities.
+- GEO: a cited-source network, competing brand comparison, GEO Bot content opportunities.
+
+The toolkit highlight, CST explanations, onboarding steps, and closing message follow the selected capability. A continuous-orbit interlude explains the research / understand / improve / measure cycle. The new CST composition combines a generated geological cutout with independently animated letters and orbital paths. The Getty Persepolis reference (https://persepolis.getty.edu/) informed the scene pacing and layered presentation; its imagery and copy are not reused.
+
+Scroll animation uses the existing GSAP/ScrollTrigger dependency. Transforms are driven by scroll rather than extra perpetual render loops. Native sticky positioning keeps the layout in document flow. Mobile uses an instrument above the chapters; reduced motion preserves the complete readable narrative and disables parallax. All instrument examples are explicitly illustrative, with fictional brands and no live API requests.
+
+Verification: `archive/verify-discovery.mjs` covers 1440px desktop and 390px mobile, both selectors, all three journeys, forward/reverse chapter state, relevant tool and onboarding content, demo dialogs, cutout loading, overflow, console errors, and motion preferences. Review screenshots are `archive/discovery-*.png`. `npm run build` and `git diff --check` pass.
+
+### New generated assets and prompts
+
+Generated using the built-in image generation tool with transparent backgrounds. Final project assets preserve alpha and are encoded as WebP: `public/assets/discovery-probe.webp` (about 299 KB) and `public/assets/discovery-shard.webp` (about 233 KB). The existing logo is unchanged.
+
+Probe prompt:
+
+> Use case: stylized-concept. Asset type: transparent cutout for a premium IcyPluto space marketing website, to animate in parallax with real HTML interfaces. Primary request: a photorealistic sculptural deep-space probe / radio telescope, with one large elegant concave parabolic dish angled three-quarter toward camera at upper right, slender black titanium instrument body and extended narrow solar-panel wings. Isolated entire object floating in space, fully within frame, no crop, actual transparent background. The dish has brushed silver ribs and a dark center, subtle muted violet edge light, white rim highlights, restrained scientific industrial aesthetic, high detailed materials, photographic cinematic lighting. Composition: square canvas, object centered with ample transparent margin, diagonal from lower left to upper right. No planet, no stars, no scenery, no labels, no letters, no watermark, no floor or shadow beneath. This must feel like an expensive editorial space mission photograph, not a toy or a UI icon.
+
+Ice-shard prompt:
+
+> Use case: stylized-concept. Asset type: transparent editorial cutout for a premium dark space website. A single dramatic floating fragment of charcoal Pluto ice rock, an angular irregular naturally eroded vertical monolith, black graphite rock with crisp silvery icy crystalline edges and just a whisper of violet light inside thin fissures. 3D photoreal detailed macro material, cinematic soft rim lighting, elegant high contrast, no bright neon, no scene, no floor. Whole object fully visible with transparent margin on every side, portrait object centered on square canvas, actual transparent background. No text, no symbols, no logo, no watermark, no planet, no stars. Not a gemstone, not a tower, a geological shard of frozen planetary crust. It will be composited with HTML orbital technical diagrams.
+
+
+## Current design: one continuous Pluto world
+
+The repeated probe/shard layouts have been removed from the rendered page. `src/continuous-world.js` creates one persistent Three.js renderer, camera, lighting rig, particle field, and scene that spans all content beneath the accepted globe/terrain hero. Every lower section has a transparent background over `public/assets/pluto-continuous-world.webp`; there are no separate section background plates. The landed hero fades into the same near-black atmosphere. Manrope and the existing logo are retained.
+
+SEO is a stack of ice page structures with a working content/structure/technical scan control. AEO uses a segmented ice signal ring and answer context. GEO uses an actual 3D source constellation. The toolkit, CST layers, onboarding gates, community network, and final logo sculpture occupy the same environment with shared frosted-ice shaders and restrained violet reflections. The hero selection sets the first capability in the journey and synchronizes the overview selector, tool highlight, and onboarding context. All three capabilities remain available in the same continuous story.
+
+The fixed landscape remains stable as objects change with scroll. Desktop scene objects hold their composition beside the text. Mobile objects track reserved positions inside each chapter to avoid obscuring content. A ResizeObserver updates scene anchors after font or content layout changes. Rendering pauses under the initial hero, stops idle draws in reduced motion, pauses in hidden tabs, caps device pixel ratio, and lowers resolution after sustained frame pressure. WebGL-disabled browsers retain the landscape and complete readable content. This does not establish hardware FPS; the local QA browser uses software graphics.
+
+Reference study: https://www.igloo.inc/ was inspected in local Chromium at a smaller render size to allow its full WebGL scenes to load. Reference screenshots are under `archive/igloo-small-*.png`. The shared material, environment, and object-based scroll progression informed the new architecture; the reference's assets and code are not reused.
+
+Current verification: `archive/verify-continuous-world.mjs` passes at 1440px and 390px, checking one shared canvas, no repeated foreground cutouts, hero/overview synchronization and chapter order, all scene transitions forward and backward, transparent shared section backgrounds, audit controls, contact dialogs, reduced motion, hidden rendering, no horizontal overflow, no browser errors, and the WebGL-disabled fallback. Desktop/mobile visual checks are `archive/continuous-*.png` and `archive/world-verified-*.png`. The older discovery verification scripts/screenshots describe the superseded study.
+
+### Continuous landscape asset
+
+Built-in image generation tool; final image: `public/assets/pluto-continuous-world.webp` (about 100 KB). The foreground sculptures are code-native 3D geometry with a custom procedural ice shader, not repeated raster cutouts.
+
+Final generation prompt:
+
+> Use case: stylized-concept. Asset type: ultrawide 16:9 cinematic continuous environment plate for IcyPluto, a premium space / ice WebGL website. A photorealistic panorama looking across a remote dark frozen Pluto basin at night. Composition is essential: the TOP 65 PERCENT of the image is almost black clean empty space with only very sparse tiny distant white stars, no planets, no nebula cloud. Along the BOTTOM 35 PERCENT is a breathtaking low charcoal ice plain with very detailed jagged black-glass ice formations and grey frost, a low distant mountain horizon at 70 percent down. The center of the bottom landscape is an open dark flat basin suitable for placing 3D objects; the left and right edges have low sculptural ice ridges. Restrained silver icy highlights and a barely perceptible hint of dusty violet light deep in rock crevices. Black and neutral graphite dominate; not a purple landscape, no blue glow. Delicate wisps of low ground fog catch soft sidelight, realistic rough ice texture. Extremely premium cinematic atmosphere, like a film still from an interplanetary expedition, crisp tangible terrain. No people, no astronaut, no spacecraft, no buildings, no logo, no text, no UI. Dark enough for white HTML text above it, generous negative space, sophisticated controlled contrast, no bright white snow field.
+
+
+## Capability background images
+
+SEO, AEO, and GEO now use separate generated backgrounds: `public/assets/pluto-world-seo.webp` (180 KB), `public/assets/pluto-world-aeo.webp` (79 KB), and `public/assets/pluto-world-geo.webp` (111 KB). The original continuous plate remains for overview and shared sections. Four persistent layers blend according to the same scroll progress as the 3D scenes, including backward scrolling and reordered capability chapters. Reduced motion switches backgrounds without animated blending.
+
+All three images were generated using the built-in image generation tool. Final prompt set uses this shared brief followed by the relevant scene brief:
+
+> Use case: stylized-concept. Asset type: ultrawide 16:9 photorealistic background plate for IcyPluto's premium dark space website. Almost black graphite palette, subtle silver frost and only a very restrained dusty violet touch. Top 65 percent mostly empty very dark starry sky, sparse tiny stars, no text, no people, no spacecraft, no UI or logos. The environment must remain dark enough for white HTML text and separate 3D objects rendered over it. Highly detailed realistic surfaces, cinematic photographic lighting.
+
+SEO:
+
+> A striking angular canyon on Pluto: deep charcoal basalt cliffs and sharply fractured ice shelves along the far left and right edges, a stepped rocky plain receding into a narrow distant ravine at the bottom center. Terrain concentrated in bottom third, side cliffs no higher than middle of frame. Raking silver side light reveals sharp geological layers. No circular crater. Tangible roughness, black frozen geology.
+
+AEO:
+
+> A radically open frozen impact basin on Pluto, with a vast polished graphite ice lake and a shallow huge circular crater rim across the bottom quarter, a faint thin silver halo along the distant rim. Very low smooth horizon, tranquil spacious composition, delicate ground mist and fine radial cracks in the foreground. No cliffs at the sides and no jagged canyon. Most of the frame is empty deep black space. Quiet monumental emptiness.
+
+GEO:
+
+> View from a low frozen ridge in near orbit, looking across the enormous curved horizon of Pluto. A sweeping crescent of charcoal planetary crust arcs across the lower third, with fine silvery glacial striations and distant mountains hugging the curvature; foreground a dark rocky ledge only at bottom left. A very faint muted violet atmospheric rim and deep black stars beyond, visually unmistakably a curved planetary horizon rather than a flat basin or canyon. Keep upper two thirds empty dark space, no large planet overhead.
+
+Verification: `archive/verify-capability-backgrounds.mjs` passes at 1440px and 390px: image decoding, distinct active images, forward/reverse scrolling, intermediate crossfade, restoration of the shared background, and no overflow or page errors. Screenshots: `archive/background-*.png`. Production build and diff checks pass.
+
+
+## Clear typography and refined motion
+
+Section eyebrow labels are removed, including SEO/AEO/GEO above the content titles and the small line above the mountain hero heading. The page keeps short, direct points, larger supporting type, fewer FAQs, and no sample-answer/source-caption clutter. The narrow 320px layout is fixed without reducing headline sizes on other screens.
+
+Headings now reveal by line with reversible scroll masks. Supporting points follow with a short stagger. The 3D scroll position eases toward the actual page position. SEO pages fan out while a scan line sweeps; selecting an audit category moves the scanner to its corresponding level. AEO ring segments assemble on arrival. GEO sources orbit as a connected network, and the CST layers separate through their chapter. Reduced motion restores fully visible headings and removes idle/scroll-driven rotations.
+
+Verification: `archive/verify-clear-type.mjs` passes at 320, 390, 820, and 1440px, including layout, tool tabs, onboarding, FAQs, contact and resource dialogs. `archive/verify-refined-motion.mjs` passes for removed eyebrows, forward/reverse line reveals, reduced-motion reset, and no browser/shader errors. Production build and `git diff --check` pass. Render timing in the local software graphics browser is not a hardware FPS measurement.
