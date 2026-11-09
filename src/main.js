@@ -1,8 +1,10 @@
+import { initTheme } from './theme.js';
 import { initPillNavigation } from './navbar.js';
 import './clean.scss';
 import './pluto-hero.scss';
 import './navbar.scss';
 import './discovery.scss';
+import './theme.scss';
 import { setupDiscovery, animateDiscovery } from './discovery.js';
 import { setupTwentyFirstComponents } from './components/21st/adaptations.js';
 import { setupProductStory, animateProductStory } from './product-story.js';
@@ -88,7 +90,7 @@ $$('[data-resource]').forEach(button => button.addEventListener('click', () => {
   $('#resource-label').textContent = data.label;
   $('#resource-title').textContent = data.title;
   $('#resource-description').textContent = data.description;
-  $('#resource-details').replaceChildren(...data.details.map(detail => { const p = document.createElement('p'); p.textContent = '↗ ' + detail; return p; }));
+  $('#resource-details').replaceChildren(...data.details.map(detail => { const p = document.createElement('p'); p.textContent = '→ ' + detail; return p; }));
   showDialog(resourceDialog, button);
 }));
 $('#resource-contact').addEventListener('click', () => {
@@ -121,7 +123,8 @@ heroExperience = initPlutoHero(() => motion, ({ focus, website, trigger }) => {
   if (website) document.querySelector('#contact-form [name="website"]').value = website;
 });
 configureMotion();
+const disposeTheme = initTheme();
 document.fonts.ready.then(() => ScrollTrigger.refresh());
 if (import.meta.hot) import.meta.hot.dispose(() => {
-  context?.revert(); heroExperience?.dispose(); navigation?.dispose(); stopStarfield(); discoveryExperience?.dispose();
+  disposeTheme(); context?.revert(); heroExperience?.dispose(); navigation?.dispose(); stopStarfield(); discoveryExperience?.dispose();
 });

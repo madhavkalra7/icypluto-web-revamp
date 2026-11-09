@@ -5,14 +5,14 @@ import { CAPABILITIES, clamp, segment, mix, cubicInOut, cubicOut, mapPoint, faci
 const vertex = `varying vec2 vUv; varying vec3 vObj; varying vec3 vN;
 void main(){vUv=uv;vObj=normalize(position);vN=normalize(mat3(modelMatrix)*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
 const fragment = `precision highp float;
-uniform sampler2D map;uniform vec2 texel;uniform vec3 sun,hiDir;uniform float hi,hiR,ready;
+uniform sampler2D map;uniform vec2 texel;uniform vec3 sun,hiDir;uniform float hi,hiR,ready,day;
 varying vec2 vUv;varying vec3 vObj;varying vec3 vN;
 float luma(vec2 uv){return dot(texture2D(map,uv).rgb,vec3(.3,.6,.1));}
 void main(){
 vec3 sampleColor=texture2D(map,vUv).rgb;vec3 col=pow(sampleColor,vec3(2.2));
 vec3 n=normalize(vN);vec3 t=normalize(cross(vec3(0.,1.,0.),n)+vec3(.0001,0.,0.));vec3 b=cross(n,t);
 float dx=luma(vUv+vec2(texel.x*2.,0.))-luma(vUv-vec2(texel.x*2.,0.));float dy=luma(vUv+vec2(0.,texel.y*2.))-luma(vUv-vec2(0.,texel.y*2.));n=normalize(n-(t*dx+b*dy)*.8);
-float diff=max(dot(n,sun),0.);vec3 lit=col*(vec3(1.05,1.02,.97)*pow(diff,.85)+vec3(.12,.115,.11));
+float diff=max(dot(n,sun),0.);vec3 lit=col*(vec3(1.05,1.02,.97)*pow(diff,.85)+mix(vec3(.12,.115,.11),vec3(.24,.255,.28),day));
 float d=acos(clamp(dot(normalize(vObj),hiDir),-1.,1.))+(dot(sampleColor,vec3(.3,.6,.1))-.45)*.15;
 float mask=1.-smoothstep(hiR-.035,hiR,d);float edge=1.-smoothstep(.0,.018,abs(d-hiR+.01));
 lit=mix(lit,lit*vec3(1.12,.94,.82)+vec3(.07,.04,.02),mask*hi*.45);lit+=vec3(.7,.61,.51)*edge*hi*.20;
@@ -75,7 +75,7 @@ export function initPlutoHero(getMotion, requestDemo) {
       planet=new THREE.Group();tilt=new THREE.Group();spin=new THREE.Group();planet.add(tilt);tilt.add(spin);scene.add(planet);
       const fallback=new THREE.DataTexture(new Uint8Array([180,160,138,255]),1,1);fallback.needsUpdate=true;
       const point=mapPoint(.54,.43);
-      surface=new THREE.Mesh(new THREE.SphereGeometry(1,128,96),new THREE.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:{map:{value:fallback},texel:{value:new THREE.Vector2(1/1600,1/800)},sun:{value:new THREE.Vector3(.62,.5,.85).normalize()},hiDir:{value:new THREE.Vector3(point.x,point.y,point.z)},hi:{value:0},hiR:{value:.45},ready:{value:0}},transparent:true}));spin.add(surface);
+      surface=new THREE.Mesh(new THREE.SphereGeometry(1,128,96),new THREE.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:{map:{value:fallback},texel:{value:new THREE.Vector2(1/1600,1/800)},sun:{value:new THREE.Vector3(.62,.5,.85).normalize()},hiDir:{value:new THREE.Vector3(point.x,point.y,point.z)},hi:{value:0},hiR:{value:.45},ready:{value:0},day:{value:document.documentElement.dataset.theme==='light'?1:0}},transparent:true}));spin.add(surface);
       atmosphere=new THREE.Mesh(new THREE.SphereGeometry(1.045,64,48),new THREE.ShaderMaterial({vertexShader:'varying vec3 vN;void main(){vN=normalize(mat3(modelMatrix)*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'uniform float ready;varying vec3 vN;void main(){float z=clamp(-vN.z,0.,1.);float a=pow(smoothstep(0.,.55,z),3.)*.18;gl_FragColor=vec4(vec3(.65,.73,.82),a*ready);}',uniforms:{ready:{value:0}},side:THREE.BackSide,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false}));planet.add(atmosphere);
       loadTexture();
       resize();
@@ -87,7 +87,7 @@ export function initPlutoHero(getMotion, requestDemo) {
     measureGeometry();alignCard();dirty=true;
   }
   function alignCard(){if(w<=760){el.preview.style.left='';el.preview.style.right='';return;}const sites=$('.ph-sites'),button=$$('[data-hero-site]')[selected];el.preview.style.left=`${Math.max(16,sites.getBoundingClientRect().left-root.getBoundingClientRect().left-el.preview.offsetWidth-24)}px`;el.preview.style.right='auto';const ideal=h*.5-sites.offsetHeight*.5+button.parentElement.offsetTop+button.offsetHeight*.5-el.preview.offsetHeight*.5;el.preview.style.top=`${Math.max(170,Math.min(ideal,h*.80-el.preview.offsetHeight))}px`;}
-  function pick(index,announce=false){const changed=selected!==index;selected=index;if(changed)document.dispatchEvent(new CustomEvent('icypluto:hero-capability',{detail:CAPABILITIES[index].name.toLowerCase()}));focusUntil=performance.now()+1800;const cap=CAPABILITIES[index];$$('[data-hero-site]').forEach((button,i)=>{button.classList.toggle('on',i===index);button.setAttribute('aria-pressed',String(i===index));});$('.ph-preview-title').textContent=cap.name;$('.ph-preview-description').textContent=cap.description;$('.ph-explore').innerHTML=`Explore ${cap.name} <span>↗</span>`;$('.ph-region').textContent=cap.name;$('.ph-destination strong').textContent=cap.destination;$('.ph-destination-copy').textContent=cap.title;$('[name="hero-focus"]').value=String(index);measureGeometry();alignCard();dirty=true;if(announce)$('.ph-status').textContent=`${cap.name}: ${cap.title}`;}
+  function pick(index,announce=false){const changed=selected!==index;selected=index;if(changed)document.dispatchEvent(new CustomEvent('icypluto:hero-capability',{detail:CAPABILITIES[index].name.toLowerCase()}));focusUntil=performance.now()+1800;const cap=CAPABILITIES[index];$$('[data-hero-site]').forEach((button,i)=>{button.classList.toggle('on',i===index);button.setAttribute('aria-pressed',String(i===index));});$('.ph-preview-title').textContent=cap.name;$('.ph-preview-description').textContent=cap.description;$('.ph-explore').innerHTML=`Explore ${cap.name} <span>→</span>`;$('.ph-region').textContent=cap.name;$('.ph-destination strong').textContent=cap.destination;$('.ph-destination-copy').textContent=cap.title;$('[name="hero-focus"]').value=String(index);measureGeometry();alignCard();dirty=true;if(announce)$('.ph-status').textContent=`${cap.name}: ${cap.title}`;}
   function go(next){next=Math.max(0,Math.min(2,next));if(next===target)return;from=st;target=next;t0=performance.now();if(next===1)focusUntil=t0+2300;const low=Math.min(from,next),high=Math.max(from,next);duration=getMotion()?Math.max(1,(Math.min(high,1)-Math.min(low,1))*1300+(Math.max(high-1,0)-Math.max(low-1,0))*2500):1;dirty=true;$$('[data-hero-step]').forEach((button,i)=>{button.classList.toggle('on',i===next);if(i===next)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');});$('.ph-status').textContent=next===0?'Pluto. Drag to rotate or explore AI visibility.':next===1?'Explore AEO, GEO, and SEO. Select a capability to land.':`${CAPABILITIES[selected].name}: ${CAPABILITIES[selected].title}. Book a demo or continue to the platform.`;}
   function render(now=0){frameId=requestAnimationFrame(render);if(disposed||document.hidden||!visible)return;const moving=Math.abs(st-target)>.0001;const age=(now-loadedAt)/1000;if(!getMotion()&&!dirty&&!moving)return;const interval=now-last,dt=Math.min(interval/1000,.1)||.016;last=now;
     // Adapt only render resolution after sustained GPU pressure, never texture detail.
@@ -140,6 +140,7 @@ export function initPlutoHero(getMotion, requestDemo) {
     dirty=false;
   }
 
+  listen(document,'icypluto:theme',()=>{if(surface)surface.material.uniforms.day.value=document.documentElement.dataset.theme==='light'?1:0;dirty=true;});
   listen(document,'icypluto:select-capability',event=>{const index=CAPABILITIES.findIndex(cap=>cap.name.toLowerCase()===event.detail);if(index>=0&&index!==selected)pick(index);});
   globeMarkers.forEach(button=>{listen(button,'click',()=>{pick(Number(button.dataset.globeSite),true);go(1);});listen(button,'focus',()=>{lastDrag=performance.now();});});
   $$('[data-hero-step]').forEach(button=>listen(button,'click',()=>go(Number(button.dataset.heroStep))));

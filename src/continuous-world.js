@@ -6,7 +6,7 @@ const clamp = x => Math.max(0,Math.min(1,x));
 const smooth = x => {x=clamp(x);return x*x*(3-2*x)};
 // One renderer and one lighting rig for the entire story. No per-section canvases.
 export function createContinuousWorld(getMotion) {
-  const host=document.createElement('div');host.className='pluto-world';host.setAttribute('aria-hidden','true');host.innerHTML=`${['default','seo','aeo','geo'].map(key=>`<div class="world-terrain" data-world-bg="${key}"${key==='default'?'':` style="background-image:url(/assets/pluto-world-${key}.webp);opacity:0"`}></div>`).join('')}<div class="world-atmosphere"></div><canvas class="world-canvas"></canvas><div class="world-grain"></div>`;
+  const host=document.createElement('div');host.className='pluto-world';host.setAttribute('aria-hidden','true');host.innerHTML=`${['default','seo','aeo','geo'].map(key=>{const dark=key==='default'?'pluto-continuous-world.webp':`pluto-world-${key}.webp`;const day=key==='default'?'pluto-day-shared.webp':`pluto-day-${key}.webp`;return `<div class="world-terrain" data-world-bg="${key}" style="--world-dark:url('/assets/${dark}');--world-day:url('/assets/${day}');opacity:0"></div>`}).join('')}<div class="world-atmosphere"></div><canvas class="world-canvas"></canvas><div class="world-grain"></div>`;
   document.body.prepend(host);
   const backgroundLayers=[...host.querySelectorAll('[data-world-bg]')];
   const backgroundKey=key=>['seo','aeo','geo'].includes(key)?key:'default';
@@ -17,24 +17,27 @@ export function createContinuousWorld(getMotion) {
   let renderer,scene,camera,environment,raf,disposed=false,dirty=true,width=innerWidth,height=innerHeight,anchors=[],introTop=0,pointer={x:0,y:0},last=0,sceneY=scrollY,activeKey=null,qualityFrames=0,qualityTotal=0,renderDpr=Math.min(devicePixelRatio||1,innerWidth<760?1.25:1.5);
   const objects=new Map(),geometries=new Set(),materials=new Set(),textures=new Set();
   const geo=g=>(geometries.add(g),g),mat=m=>(materials.add(m),m);
+  const dayUniform={value:document.documentElement.dataset.theme==='light'?1:0};
   const ice=()=>{
     const material=mat(new THREE.MeshPhysicalMaterial({color:0x8f97ad,metalness:.5,roughness:.3,clearcoat:1,clearcoatRoughness:.18,flatShading:false,envMapIntensity:1.25}));
     material.onBeforeCompile=shader=>{
+      shader.uniforms.uDay=dayUniform;
       shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vIceLocal;').replace('#include <begin_vertex>','#include <begin_vertex>\nvIceLocal=position;');
       shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>
         varying vec3 vIceLocal;
+        uniform float uDay;
         float ih(vec3 p){p=fract(p*.3183099+vec3(.1,.2,.3));p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
         float inoise(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(mix(ih(i),ih(i+vec3(1,0,0)),f.x),mix(ih(i+vec3(0,1,0)),ih(i+vec3(1,1,0)),f.x),f.y),mix(mix(ih(i+vec3(0,0,1)),ih(i+vec3(1,0,1)),f.x),mix(ih(i+vec3(0,1,1)),ih(i+vec3(1,1,1)),f.x),f.y),f.z);}
       `).replace('#include <color_fragment>',`#include <color_fragment>
         float frost=inoise(vIceLocal*18.)*.65+inoise(vIceLocal*51.)*.35;float micro=inoise(vIceLocal*91.);
         float vein=pow(1.-abs(sin(vIceLocal.y*14.+vIceLocal.x*8.+frost*9.)),20.);
-        vec3 iceDark=vec3(.014,.018,.027);vec3 iceFrost=vec3(.18,.21,.27);
+        vec3 iceDark=mix(vec3(.014,.018,.027),vec3(.30,.42,.58),uDay);vec3 iceFrost=mix(vec3(.18,.21,.27),vec3(.82,.91,.97),uDay);
         diffuseColor.rgb=mix(iceDark,iceFrost,smoothstep(.4,.78,frost)*.5)+micro*.025+vein*.045;
       `).replace('#include <roughnessmap_fragment>',`#include <roughnessmap_fragment>
-        roughnessFactor=clamp(.16+frost*.46+micro*.08,.18,.65);
+        roughnessFactor=mix(clamp(.16+frost*.46+micro*.08,.18,.65),.40+frost*.16,uDay);
       `);
     };
-    material.customProgramCacheKey=()=> 'icypluto-frost-1';return material;
+    material.customProgramCacheKey=()=> 'icypluto-frost-daylight-2';return material;
   };
   const edge=mat(new THREE.LineBasicMaterial({color:0xe8dff9,transparent:true,opacity:.26}));
   const light=mat(new THREE.MeshBasicMaterial({color:0xcfb3f5}));
@@ -79,7 +82,8 @@ export function createContinuousWorld(getMotion) {
     const y=mobile?(height*.5-screenY)/pixelsPerUnit:d.y;
     g.visible=weight>.006&&!(mobile&&d.key==='questions');if(!g.visible)return;
     const s=d.scale*(mobile?.6:1)*Math.pow(weight,.65);g.scale.setScalar(s);
-    g.position.set(x+(1-weight)*(x<0?-1.2:1.2),y+(1-weight)*-.7,-(1-weight)*4);
+    const dayOffset=dayUniform.value&&['tools','intro'].includes(d.key)&&!mobile?-.35:0;
+    g.position.set(x+dayOffset+(1-weight)*(x<0?-1.2:1.2),y+(1-weight)*-.7,-(1-weight)*4);
     g.rotation.y=getMotion()?Math.sin(progress*1.3)*.18+time*.018:0;
     g.rotation.x=getMotion()?Math.sin(progress*2)*.055:0;
     const enabled=getMotion(),phase=enabled?progress:0;
@@ -115,14 +119,26 @@ export function createContinuousWorld(getMotion) {
     host.style.setProperty('--world-travel',`${-Math.min(22,y/400)}px`);
     if(renderer){renderer.render(scene,camera);host.dataset.ready='true'}dirty=false;last=now;
   }
+  function onTheme(){
+    const day=document.documentElement.dataset.theme==='light';dayUniform.value=day?1:0;
+    edge.color.setHex(day?0x705096:0xe8dff9);edge.opacity=day?.48:.26;
+    light.color.setHex(day?0x8052b9:0xcfb3f5);
+    if(scene){scene.fog.color.setHex(day?0xf3f7fc:0x060609);scene.fog.density=day?.012:.025;
+      scene.children.filter(o=>o.isHemisphereLight).forEach(o=>{o.color.setHex(day?0xf3faff:0xe6e6ed);o.groundColor.setHex(day?0xc2c6df:0x16101e);o.intensity=day?1.5:.75;});
+      const dust=scene.getObjectByName('dust');if(dust){dust.material.color.setHex(day?0x8d9cb9:0xd9d4e3);dust.material.opacity=day?.26:.6;}
+    }
+    for(const m of materials){if(!m.isMeshPhysicalMaterial)continue;m.metalness=day?.12:.5;m.clearcoat=day?.65:1;m.envMapIntensity=day?.7:1.25;}
+    host.dataset.material=day?'daylight-ice':'night-frost';dirty=true;
+  }
   function onInspect(event){const scan=objects.get('seo')?.getObjectByName('scan');if(scan)scan.userData.inspect=Number(event.detail);dirty=true}
   function onScroll(){dirty=true}function onPointer(e){pointer.x=e.clientX/width-.5;pointer.y=.5-e.clientY/height;dirty=true}function onVisibility(){dirty=true}
   try{renderer=new THREE.WebGLRenderer({canvas:host.querySelector('canvas'),alpha:true,antialias:true,powerPreference:'high-performance'});renderer.setClearColor(0,0);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x060609,.025);camera=new THREE.PerspectiveCamera(39,width/height,.1,100);camera.position.z=10;
     const pmrem=new THREE.PMREMGenerator(renderer),room=new RoomEnvironment();environment=pmrem.fromScene(room,.05);scene.environment=environment.texture;room.dispose();pmrem.dispose();
     scene.add(new THREE.HemisphereLight(0xe6e6ed,0x16101e,.75));const key=new THREE.DirectionalLight(0xffffff,2.2);key.position.set(-3,5,5);scene.add(key);const rimLight=new THREE.DirectionalLight(0xbca0ed,1.8);rimLight.position.set(4,1,-2);scene.add(rimLight);makeObjects();makeParticles();host.classList.add('has-webgl');
   }catch(error){host.classList.add('world-fallback');console.info('IcyPluto world uses the landscape fallback:',error.message)}
+  onTheme();document.addEventListener('icypluto:theme',onTheme);
   window.addEventListener('resize',resize);window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('pointermove',onPointer,{passive:true});document.addEventListener('visibilitychange',onVisibility);document.addEventListener('icypluto:inspect',onInspect);
   const layoutObserver=new ResizeObserver(refresh);layoutObserver.observe(document.querySelector('#main'));document.querySelectorAll('[data-world]').forEach(element=>layoutObserver.observe(element));
   resize();document.fonts.ready.then(refresh);raf=requestAnimationFrame(draw);
-  return {refresh,dispose(){disposed=true;layoutObserver.disconnect();cancelAnimationFrame(raf);window.removeEventListener('resize',resize);window.removeEventListener('scroll',onScroll);window.removeEventListener('pointermove',onPointer);document.removeEventListener('visibilitychange',onVisibility);document.removeEventListener('icypluto:inspect',onInspect);geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());environment?.dispose();renderer?.dispose();host.remove()}};
+  return {refresh,dispose(){disposed=true;document.removeEventListener('icypluto:theme',onTheme);layoutObserver.disconnect();cancelAnimationFrame(raf);window.removeEventListener('resize',resize);window.removeEventListener('scroll',onScroll);window.removeEventListener('pointermove',onPointer);document.removeEventListener('visibilitychange',onVisibility);document.removeEventListener('icypluto:inspect',onInspect);geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());environment?.dispose();renderer?.dispose();host.remove()}};
 }

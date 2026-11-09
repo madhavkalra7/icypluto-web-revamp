@@ -17,15 +17,15 @@ export function setupDiscovery(getMotion, refresh){
     </section>
     <div class="capability-worlds" id="platform">
       <section class="world-chapter world-seo" id="capability-seo" data-world="seo" aria-labelledby="seo-title">
-        <div class="world-chapter-copy"><h2 id="seo-title">Fix your<br>website.</h2><p>Find technical issues.<br>Prioritize the fixes.</p><button class="world-link" data-contact="SEOMax website audit demo">Explore SEOMax <span>↗</span></button></div>
+        <div class="world-chapter-copy"><h2 id="seo-title">Fix your<br>website.</h2><p>Find technical issues.<br>Prioritize the fixes.</p><button class="world-link" data-contact="SEOMax website audit demo">Explore SEOMax <span>→</span></button></div>
         <div class="world-scan-readout"><div class="audit-controls" role="group" aria-label="Explore an audit finding"><button data-audit="0" aria-pressed="true">Content</button><button data-audit="1" aria-pressed="false">Structure</button><button data-audit="2" aria-pressed="false">Technical</button></div><p class="audit-explanation">Clear page titles.</p></div>
       </section>
       <section class="world-chapter world-aeo" id="capability-aeo" data-world="aeo" aria-labelledby="aeo-title">
         <div class="answer-heading"><h2 id="aeo-title">Your brand.<br><em>In AI answers.</em></h2></div>
-        <div class="answer-explainer"><p>Track mentions.<br>Compare competitors.</p><button class="world-link" data-contact="AI answer visibility demo">See your AI visibility <span>↗</span></button></div>
+        <div class="answer-explainer"><p>Track mentions.<br>Compare competitors.</p><button class="world-link" data-contact="AI answer visibility demo">See your AI visibility <span>→</span></button></div>
       </section>
       <section class="world-chapter world-geo" id="capability-geo" data-world="geo" aria-labelledby="geo-title">
-        <div class="world-chapter-copy"><h2 id="geo-title">Follow the<br>sources.</h2><p>Trace cited websites.<br>Spot content gaps.</p><button class="world-link" data-contact="GEO sources and recommendations demo">Follow your source trail <span>↗</span></button></div>
+        <div class="world-chapter-copy"><h2 id="geo-title">Follow the<br>sources.</h2><p>Trace cited websites.<br>Spot content gaps.</p><button class="world-link" data-contact="GEO sources and recommendations demo">Follow your source trail <span>→</span></button></div>
       </section>
     </div>
   </div>`;
