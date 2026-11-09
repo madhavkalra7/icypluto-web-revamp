@@ -31,14 +31,14 @@ export function startStarfield(getMotion) {
     }
     layer.globalAlpha=1;
   }
-  function start(){if(!frame&&!disposed&&visible&&!document.hidden){last=performance.now();frame=requestAnimationFrame(render);}}
+  function start(){if(!frame&&!disposed&&visible&&!document.hidden&&!hero.classList.contains('ph-on-surface')){last=performance.now();frame=requestAnimationFrame(render);}}
   function resize(){width=hero.clientWidth;height=hero.clientHeight;const dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
     let seed=134340;const random=()=>{seed=seed*16807%2147483647;return(seed-1)/2147483646;};
     buildGalaxy(random,dpr);
     particles=Array.from({length:Math.min(85,Math.max(26,Math.floor(width*height/17000)))},()=>({x:random()*width,y:random()*height,r:.25+random()**2*1.1,alpha:.26+random()*.52,phase:random()*Math.PI*2,depth:.2+random()*.8,vx:(random()-.35)*4,vy:-.8-random()*3.5,flare:random()>.98}));start();
   }
-  function render(time){frame=0;if(disposed||!visible||document.hidden)return;
-    if(time-last<32&&getMotion()){frame=requestAnimationFrame(render);return;}
+  function render(time){frame=0;if(disposed||!visible||document.hidden||hero.classList.contains('ph-on-surface'))return;
+
     const dt=Math.min((time-last)/1000,.12);last=time;const moving=getMotion();if(moving)elapsed+=dt;
     ctx.clearRect(0,0,width,height);
     const driftX=moving?Math.sin(elapsed*.025)*4+pointerX*2:0,driftY=moving?Math.cos(elapsed*.02)*2:0;
@@ -57,7 +57,7 @@ export function startStarfield(getMotion) {
   const visibility=()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else start();};
   const bounds=new ResizeObserver(resize);bounds.observe(hero);
   const io=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)start();else{cancelAnimationFrame(frame);frame=0;}},{threshold:0});io.observe(hero);
-  const motion=new MutationObserver(start);motion.observe(document.body,{attributes:true,attributeFilter:['class']});
+  const motion=new MutationObserver(start);motion.observe(document.body,{attributes:true,attributeFilter:['class']});motion.observe(hero,{attributes:true,attributeFilter:['class']});
   hero.addEventListener('pointermove',pointer,{passive:true});document.addEventListener('visibilitychange',visibility);resize();
   return()=>{disposed=true;cancelAnimationFrame(frame);bounds.disconnect();io.disconnect();motion.disconnect();hero.removeEventListener('pointermove',pointer);document.removeEventListener('visibilitychange',visibility);canvas.remove();};
 }

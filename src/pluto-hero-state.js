@@ -16,14 +16,14 @@ export function rotatePoint(point, yaw, pitch) {
 }
 export function heroFrame({ state, width: w, height: h, age, motion = true }) {
   const a = clamp(state), b = clamp(state - 1), portrait = h > w * 1.05;
-  const grow = motion ? cubicOut(segment(age, 1.6, 3.1)) : 1;
+  const grow = motion ? cubicOut(segment(age, .15, 1.7)) : 1;
   const intro = motion ? cubicOut(segment(age, .05, .65)) : 1;
-  const baseRadius = portrait ? w * .385 : Math.min(h * .34, w * .215);
+  const baseRadius = mix(w <= 760 ? w * .31 : Math.min(h * .29, w * .195), portrait ? w * .385 : Math.min(h * .34, w * .215), a);
   const zoom = cubicInOut(segment(b, 0, .62));
-  const x = portrait ? w * .5 : mix(w * .5, w * .34, a);
-  const y = portrait ? mix(h * .43, h * .34, a) : mix(h * .55, h * .52, a);
+  const x = mix(w <= 760 ? w * .5 : w * .745, portrait ? w * .5 : w * .34, a);
+  const y = mix(w <= 760 ? h * .65 : h * .52, portrait ? h * .34 : h * .52, a);
   return { a, b, portrait, grow, intro, baseRadius, zoom,
-    radius: baseRadius * mix(.03, 1, grow) * (1 + a * .04) * Math.exp(zoom * 2.5),
+    radius: baseRadius * mix(.78, 1, grow) * (1 + a * .04) * Math.exp(zoom * 2.5),
     cx: mix(x, w * .5, zoom), cy: mix(y, h * .5, zoom),
     wordOpacity: 1 - segment(a, .1, .5),
     panelOpacity: segment(a, .55, 1) * (1 - segment(b, 0, .14)),

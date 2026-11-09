@@ -167,3 +167,37 @@
  .ph-preview-description{font-size:9px;line-height:1.45;margin-top:6px;}
  .ph-explore{font-size:9px;margin-top:6px;padding-top:5px;}
 }}
+
+// Composite the looping shimmer instead of repainting a full-width text gradient.
+.hero.pluto-hero .ph-icy,.hero.pluto-hero .ph-pluto-letters{background-position:50% 0;will-change:opacity;}
+@keyframes ph-outline-shimmer{0%,100%{opacity:.66;}50%{opacity:1;}}
+
+
+// Opening: an unobstructed wordmark and a separate, living planetary orbit.
+.hero.pluto-hero {
+ .ph-word { left:8.5%;top:0;z-index:6;display:flex;flex-direction:column;align-items:flex-start;font-size:min(12.8vw,23vh);line-height:1;letter-spacing:-.075em;margin:0; }
+ .ph-icy,.ph-pluto-letters { animation:none;background:none;-webkit-text-stroke:0;-webkit-text-fill-color:currentColor;color:#f6f5fa;padding:0; }
+ .ph-icy { font-size:.56em;letter-spacing:-.065em;line-height:1.05;color:#bba2f5; }
+ .ph-pluto-wrap { overflow:hidden;max-width:none;line-height:1.06; }
+ .ph-pluto-letters { position:relative;padding-right:.10em;text-shadow:0 4px 36px #a387ec12; }
+ .ph-opening-copy { position:absolute;left:8.8%;top:64%;z-index:6;font-size:clamp(22px,2.15vw,34px);line-height:1.35;letter-spacing:-.035em;color:#cfccd8;pointer-events:none;margin:0; }
+ .ph-orbit { position:absolute;z-index:3;transform:translate(-50%,-50%) rotate(-29deg);pointer-events:none;will-change:opacity; }
+ .ph-orbit-path { position:absolute;inset:0;border:1px solid #bda5ef55;border-radius:50%;box-shadow:0 0 22px #9b70eb0d,inset 0 0 18px #9b70eb0a;
+  i,b { position:absolute;left:0;top:0;offset-path:ellipse(50% 50% at 50% 50%);offset-distance:0%;width:7px;height:7px;border-radius:50%;background:#d4bdff;box-shadow:0 0 14px 3px #ad83ff80;animation:ph-orbit-travel 24s linear infinite; }
+  b { width:3px;height:3px;background:#fff;animation-delay:-12s;box-shadow:0 0 9px #fff8; }
+ }
+ &:not(.ph-exploring) .ph-controls { left:8.8%;right:auto;bottom:14%; }
+ &:not(.ph-exploring) .ph-next { font-size:17px;gap:42px;padding:13px 0;border-color:#ba9df27a; }
+}
+@keyframes ph-orbit-travel { to { offset-distance:100%; } }
+@media(max-width:760px){.hero.pluto-hero{
+ .ph-word { left:8%;font-size:22vw;line-height:1; }
+ .ph-opening-copy { left:8%;top:40%;font-size:22px;line-height:1.25;max-width:290px; }
+ .ph-orbit { transform:translate(-50%,-50%) rotate(-26deg); }
+ &:not(.ph-exploring) .ph-controls { left:8%;right:8%;bottom:6%;justify-content:space-between; }
+ &:not(.ph-exploring) .ph-next { font-size:16px;justify-content:space-between;width:100%; }
+}}
+@media(prefers-reduced-motion:reduce){.hero.pluto-hero .ph-orbit-path i,.hero.pluto-hero .ph-orbit-path b{animation:none;}.hero.pluto-hero .ph-orbit-path b{offset-distance:55%;}}
+.motion-off .pluto-hero .ph-orbit-path i,.motion-off .pluto-hero .ph-orbit-path b{animation:none;}
+
+.hero.pluto-hero .ph-ridge-day{display:none;}
