@@ -6,7 +6,7 @@
 .ph-region{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;font-size:clamp(34px,5vw,80px);font-weight:800;letter-spacing:.02em;pointer-events:none}
 .ph-land{z-index:8;background:url('/assets/pluto-landing.webp') 50% 50% / cover no-repeat;will-change:transform;pointer-events:none;opacity:0}.ph-fore{z-index:10;background:url('/assets/pluto-foreground.webp') 50% 100% / cover no-repeat;will-change:transform;pointer-events:none;opacity:0}.ph-destination{position:absolute;left:0;right:0;top:0;text-align:center;z-index:9;pointer-events:none;>span{display:block;font-size:clamp(11px,1.3vw,20px);font-weight:600;letter-spacing:.11em;color:#f1ede8}strong{display:block;font-weight:800;font-size:min(9.3vw,16vh);line-height:1.08;letter-spacing:-.055em;color:#fff7ee;margin-top:13px;white-space:nowrap}p{font-size:clamp(12px,1.25vw,18px);color:#e4d7c8;margin-top:14px}}
 .ph-fog{z-index:11;background:radial-gradient(ellipse at 50% 45%,#f1e9dc,#c9c0ae 60%,#5e5c59);pointer-events:none;opacity:0}.ph-scrim{z-index:13;height:150px;background:linear-gradient(#060708a6,transparent);pointer-events:none}
-.ph-booking{position:absolute;z-index:12;left:50%;bottom:10vh;width:min(86vw,960px);display:grid;grid-template-columns:1fr 1fr 1fr 64px;background:#f8f7f3;color:#201d1a;border-radius:5px;overflow:hidden;box-shadow:0 20px 70px #0006;>label,>div{display:block;padding:16px 20px;border-right:1px solid #dedbd5;font-size:9px;font-weight:600;letter-spacing:.04em;color:#7c746b}input,select{display:block;width:100%;margin-top:7px;font:800 13px Manrope,Arial,sans-serif;color:#28231e;border:0;background:transparent;outline-offset:4px;padding:0;min-height:20px;letter-spacing:0;color-scheme:light}select{cursor:pointer;option{background:#f8f7f3;color:#28231e}}>div>span{display:block}strong{font-size:11px;letter-spacing:0;display:block;margin-top:8px;font-weight:800;color:#28231e}>button{background:#b28c6d;color:#fff;font-size:25px;transition:background .25s;&:hover{background:#926b4d}}}
+.ph-booking{position:absolute;z-index:12;left:50%;bottom:10vh;width:min(86vw,960px);display:grid;grid-template-columns:1fr 1fr 1fr 64px;background:#f8f7f3;color:#201d1a;border-radius:5px;overflow:hidden;box-shadow:0 20px 70px #0006;>label,>div{display:block;padding:16px 20px;border-right:1px solid #dedbd5;font-size:9px;font-weight:600;letter-spacing:.04em;color:#7c746b}input,select{display:block;width:100%;margin-top:7px;font:800 13px "DM Sans",Arial,sans-serif;color:#28231e;border:0;background:transparent;outline-offset:4px;padding:0;min-height:20px;letter-spacing:0;color-scheme:light}select{cursor:pointer;option{background:#f8f7f3;color:#28231e}}>div>span{display:block}strong{font-size:11px;letter-spacing:0;display:block;margin-top:8px;font-weight:800;color:#28231e}>button{background:#b28c6d;color:#fff;font-size:25px;transition:background .25s;&:hover{background:#926b4d}}}
 .ph-intro-copy{position:absolute;left:6%;bottom:12%;z-index:6;max-width:440px;pointer-events:none;>p{font-size:13px;font-weight:800;color:#ede9e3}>span{display:block;font-size:11px;color:#bdb5ae;margin-top:7px;line-height:1.8}}
 .ph-rail{position:absolute;left:2.7%;top:50%;transform:translateY(-50%);z-index:20;display:grid;gap:20px;button{display:flex;align-items:center;gap:11px;background:none;padding:3px 0;i{display:block;width:6px;height:6px;border-radius:50%;background:#ffffff50;transition:background .3s,transform .3s}span{font-size:8px;color:#b7b4af;opacity:0;transition:opacity .3s}&.on{i{background:white;transform:scale(1.4)}span{opacity:1}}}}
 .ph-controls{position:absolute;right:6%;bottom:12%;z-index:14;display:flex;align-items:center;gap:25px;button{background:none;font-size:11px;color:#ddd7d0;padding:8px 0;border-bottom:1px solid #ffffff40}.ph-next{display:flex;align-items:center;gap:22px;font-weight:800;color:white;span{font-size:21px}}}
@@ -60,7 +60,7 @@
   .ph-pluto-wrap { display:block;width:0;overflow:visible; }
   .ph-pluto-letters { width:max-content;will-change:transform,clip-path; }
   .ph-globe-markers { position:absolute;inset:0;z-index:6;pointer-events:none; }
-  .ph-pin { pointer-events:auto;background:none;color:white;border:0;padding:0;font:800 8px Manrope,Arial,sans-serif;letter-spacing:.06em;text-shadow:0 1px 4px #000;gap:10px;opacity:0;cursor:pointer; }
+  .ph-pin { pointer-events:auto;background:none;color:white;border:0;padding:0;font:800 8px "DM Sans",Arial,sans-serif;letter-spacing:.06em;text-shadow:0 1px 4px #000;gap:10px;opacity:0;cursor:pointer; }
   .ph-pin i { width:7px;height:7px;flex-shrink:0;background:#f6f1ff;box-shadow:0 0 0 5px #5d17eb24,0 0 15px #5d17eb45; }
   .ph-pin:hover span,.ph-pin:focus-visible span { color:#dacbff; }
   .ph-pin[data-globe-site="2"] { flex-direction:row-reverse;margin-left:-100px; }
@@ -94,7 +94,7 @@
   72%,100%{background-position:-80% 0;}
 }
 @media(prefers-reduced-motion:reduce){.hero.pluto-hero .ph-icy,.hero.pluto-hero .ph-pluto-letters{animation:none;background-position:50% 0;}}
-.motion-off .pluto-hero .ph-icy,.motion-off .pluto-hero .ph-pluto-letters{animation:none;background-position:50% 0;}
+ .motion-off .pluto-hero .ph-icy, .motion-off .pluto-hero .ph-pluto-letters{animation:none;background-position:50% 0;}
 
 .hero.pluto-hero .ph-word{width:max-content;max-width:none;}
 
@@ -175,9 +175,9 @@
 
 // Opening: an unobstructed wordmark and a separate, living planetary orbit.
 .hero.pluto-hero {
- .ph-word { left:8.5%;top:0;z-index:6;display:flex;flex-direction:column;align-items:flex-start;font-size:min(12.8vw,23vh);line-height:1;letter-spacing:-.075em;margin:0; }
+ .ph-word { left:8.5%;top:0;z-index:6;display:flex;flex-direction:column;align-items:flex-start;font-size:min(12.8vw,23vh);line-height:1;letter-spacing:.005em;font-kerning:none;margin:0; }
  .ph-icy,.ph-pluto-letters { animation:none;background:none;-webkit-text-stroke:0;-webkit-text-fill-color:currentColor;color:#f6f5fa;padding:0; }
- .ph-icy { font-size:.56em;letter-spacing:-.065em;line-height:1.05;color:#bba2f5; }
+ .ph-icy { font-size:.56em;letter-spacing:-.02em;line-height:1.05;color:#bba2f5; }
  .ph-pluto-wrap { overflow:hidden;max-width:none;line-height:1.06; }
  .ph-pluto-letters { position:relative;padding-right:.10em;text-shadow:0 4px 36px #a387ec12; }
  .ph-opening-copy { position:absolute;left:8.8%;top:64%;z-index:6;font-size:clamp(22px,2.15vw,34px);line-height:1.35;letter-spacing:-.035em;color:#cfccd8;pointer-events:none;margin:0; }
@@ -198,6 +198,46 @@
  &:not(.ph-exploring) .ph-next { font-size:16px;justify-content:space-between;width:100%; }
 }}
 @media(prefers-reduced-motion:reduce){.hero.pluto-hero .ph-orbit-path i,.hero.pluto-hero .ph-orbit-path b{animation:none;}.hero.pluto-hero .ph-orbit-path b{offset-distance:55%;}}
-.motion-off .pluto-hero .ph-orbit-path i,.motion-off .pluto-hero .ph-orbit-path b{animation:none;}
+ .motion-off .pluto-hero .ph-orbit-path i, .motion-off .pluto-hero .ph-orbit-path b{animation:none;}
 
 .hero.pluto-hero .ph-ridge-day{display:none;}
+
+.hero.pluto-hero .ph-next:disabled{cursor:progress;}
+
+// SEO, AEO and GEO converge into one Pluto entry before the camera moves.
+.hero.pluto-hero{
+ .ph-convergence{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0;overflow:hidden;}
+ .ph-merge-label{position:absolute;left:0;top:0;font-weight:800;line-height:1;letter-spacing:-.035em;color:#f6f1ff;text-shadow:0 0 24px #ad7bf54a;will-change:transform,opacity;}
+ .ph-merge-core{position:absolute;left:0;top:0;width:220px;height:220px;border:1px solid #ccb5ff99;border-radius:50%;background:radial-gradient(circle,#ede3ff66, #ac75ee25 25%,transparent 65%);box-shadow:0 0 55px #b784f533,inset 0 0 30px #b784f522;opacity:0;will-change:transform,opacity;}
+ .ph-merge-brand{position:absolute;left:0;top:0;white-space:nowrap;font-size:clamp(32px,4.5vw,70px);font-weight:800;letter-spacing:-.025em;color:white;text-shadow:0 2px 14px #0009,0 0 26px #bb91ff88;opacity:0;will-change:transform,opacity;}
+}
+html[data-theme=light] .hero.pluto-hero{.ph-merge-label{color:#342043;text-shadow:0 0 18px #fff9;}.ph-merge-core{border-color:#8c55b999;box-shadow:0 0 40px #8e5aca33;}.ph-merge-brand{color:#fff;text-shadow:0 2px 12px #372444,0 0 22px #b891e7;}}
+@media(max-width:760px){.hero.pluto-hero .ph-merge-core{width:145px;height:145px;}}
+@media(prefers-reduced-motion:reduce){.hero.pluto-hero .ph-convergence{display:none;}}
+
+.hero.pluto-hero .ph-destination strong{letter-spacing:-.02em;}
+
+// The large landscape wordmark shares the header typography, then docks on scroll.
+.site-header .brand-wordmark{display:inline-block;line-height:1;will-change:opacity;}
+.hero.pluto-hero .ph-destination strong{font-family:inherit;font-weight:800;font-size:min(14vw,25vh);letter-spacing:-.05em;white-space:nowrap;}
+.hero.pluto-hero .ph-destination-word{display:inline-block;line-height:1;}
+
+@media(max-width:760px){.hero.pluto-hero .ph-destination strong{font-size:20vw;max-width:none;white-space:nowrap;}}
+
+
+// Cached galaxy texture: composite its drift instead of repainting it at every frame.
+.hero.pluto-hero .ph-galaxy{position:absolute;inset:-8px;width:calc(100% + 16px);height:calc(100% + 16px);z-index:1;pointer-events:none;will-change:transform;}
+html[data-theme=light] .hero.pluto-hero .ph-galaxy{display:none;}
+
+// The same text node leaves the terrain layer and is reparented into the navbar.
+.hero.pluto-hero .ph-destination-word,.ph-wordmark-slot{vertical-align:top;}
+.ph-brand-transit{position:fixed;left:0;top:0;z-index:70;display:block;line-height:1;white-space:nowrap;pointer-events:none;transform-origin:0 0;will-change:transform;-webkit-font-smoothing:antialiased;}
+.site-header .brand-wordmark>.ph-destination-word{font:inherit;letter-spacing:inherit;line-height:inherit;color:inherit;}
+
+// Primary landscape action, with orbit navigation beside the header.
+.hero.pluto-hero.ph-on-surface .ph-controls{left:50%!important;right:auto!important;bottom:12%!important;transition:none!important;transform:translateX(-50%);width:max-content;max-width:86%;justify-content:center;}
+.hero.pluto-hero.ph-on-surface .ph-next{font-size:clamp(28px,3.4vw,52px)!important;font-weight:800;line-height:1.2;transition:color .2s,border-color .2s!important;letter-spacing:-.025em;gap:25px;padding:16px 0;border-bottom:1px solid #dfc8ff88;white-space:nowrap;span{font-size:1.05em;}}
+.site-header>.ph-back{position:absolute;z-index:2;pointer-events:auto;white-space:nowrap;background:none;border:0;border-bottom:1px solid #c6b1df50;color:#e9e1f1;font:700 17px/1.4 "DM Sans",Arial,sans-serif;padding:9px 0;transition:color .2s;&:hover{color:white;border-color:#d5bbff;}}
+html[data-theme=light] .site-header>.ph-back{color:#49315f;border-color:#795a9d66;}
+html[data-theme=light] .hero.pluto-hero.ph-on-surface .ph-next{background:none;backdrop-filter:none;padding-inline:0;border-radius:0;color:#30203f;}
+@media(max-width:760px){.hero.pluto-hero.ph-on-surface .ph-next{font-size:clamp(22px,6vw,30px)!important;gap:16px;}.site-header>.ph-back{font-size:15px;padding:5px 0;}.hero.pluto-hero .ph-rail{top:183px;}}
