@@ -25,8 +25,6 @@ let heroExperience, navigation;
 function configureMotion() {
   context?.revert();
   document.body.classList.toggle('motion-off', !motion);
-  $('#motion-toggle').textContent = motion ? 'Motion on ◉' : 'Motion off ○';
-  $('#motion-toggle').setAttribute('aria-pressed', String(!motion));
   document.documentElement.style.scrollBehavior = motion ? 'smooth' : 'auto';
 
   context = gsap.context(() => {
@@ -99,11 +97,6 @@ $('#resource-contact').addEventListener('click', () => {
   openContact(resourceIntent, trigger);
 });
 function closeMenu() { navigation?.close(); }
-$('#motion-toggle').addEventListener('click', () => {
-  motion = !motion;
-  try { localStorage.setItem('icypluto-motion', motion ? 'on' : 'off'); } catch {}
-  configureMotion();
-});
 reduced.addEventListener('change', event => { motion = !event.matches; configureMotion(); });
 let resizeTimer, previousWidth = innerWidth;
 window.addEventListener('resize', () => {
