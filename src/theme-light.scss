@@ -1,0 +1,102 @@
+html[data-theme=light] {
+ --theme-ink:#211c32;--theme-muted:#625a73;--theme-line:#4e326b30;--theme-accent:#7046ad;
+ background:#f3f7fc;color-scheme:light;
+ body,body.continuous-pluto{background:#f3f7fc;color:var(--theme-ink);}
+ ::selection{background:#d7c5f7;color:#211c32;}
+ .orbit-switch{background:#fffffff0;border-color:#8260ad40;color:#49335f;box-shadow:0 6px 30px #3a245a14;
+  .orbit-switch-planet{background:#d4b0ff;box-shadow:inset 0 0 0 3px #f0e2ff,0 0 15px #b086e840;}
+  .orbit-switch-track{border-color:#8f6db770;}.orbit-switch-satellite{background:#7046ad;box-shadow:none;right:3px;top:25px;}
+ }
+ .site-header:before{background:linear-gradient(#f3f7fcf0,transparent);}
+ .brand{color:#211c32;}.site-header .brand>img{filter:none;}
+ .water-glass{background:#ffffffbf;box-shadow:inset 0 1px #fff,inset 0 0 0 1px #6c4c8a33,0 8px 32px #3d245914;}
+ .water-nav .nav-item{color:#4f455f;&:hover,&:focus-visible,&[aria-expanded=true]{color:#5d17c8;}}
+ .water-nav .nav-panel{background:#fcfafffa;border-color:#73578b30;box-shadow:0 18px 55px #49346125;}
+ .water-nav .nav-panel a,.water-nav .nav-panel button{color:#34273f;span{color:#785a96;}&:hover,&:focus-visible{background:#8253b710;}}
+ .water-drop{background:#8561b719;box-shadow:inset 0 0 0 1px #7956a72b;}.water-canvas{filter:brightness(.55) saturate(.7);}
+ .interactive-hover-button{background:#30243e;color:#fff;border-color:#46344e;
+  .ihb-hover{color:#211329;}.ihb-default i{background:#d3b8f7;}
+ }
+ .hero.pluto-hero{background:#f3f7fc;color:var(--theme-ink);
+  .ph-sky{background:radial-gradient(ellipse at 35% 60%,#d8c5f64a,transparent 65%);}
+  #starfield{display:none;}
+  .ph-icy{color:#7b4cba;}.ph-pluto-letters{color:#241b36;-webkit-text-fill-color:currentColor;text-shadow:none;}
+  .ph-opening-copy{color:#64566f;}
+  .ph-orbit-path{border-color:#8963bc77;box-shadow:none;i{background:#7646b0;box-shadow:0 0 14px #966bdc55;}b{background:#604179;}}
+  .ph-flare{background:radial-gradient(closest-side,#e4d0ff80,transparent 72%);}
+  .ph-pin span{background:#24182ad9;color:#fff;padding:3px 6px;border-radius:5px;text-shadow:none;}
+  .ph-preview{background:#fffdfcf5;border-color:#6f518a40;box-shadow:0 12px 32px #3a244019;color:#211c32;.ph-preview-description{color:#67596f;}.ph-explore{border-color:#7a638233;color:#49305c;}}
+  .ph-sites button{color:#4a3d58;small{color:#70617e;}i{background:#735197;}&.on{color:#4d1e84;i{background:#6c37a3;box-shadow:0 0 0 7px #8754af18;}}}
+  .ph-sites:before{background:#74588e40;}
+  .ph-controls button{color:#403148;border-color:#74528c55;}.ph-controls .ph-next{color:#3b224c;}
+  .ph-word-one{color:#fff5ff;-webkit-text-stroke:1px #4d3a60;text-shadow:0 2px 10px #25192c33;}
+  .ph-region{color:#2e163d;}
+  .ph-rail button i{background:#7e668b70;}.ph-rail button.on i{background:#684280;}.ph-rail button span{color:#4f365d;}
+  .ph-land,.ph-ridge,.ph-fore{filter:none;}
+  .ph-land{background-image:url('/assets/pluto-day-landing.webp');}
+  .ph-fore{background-image:url('/assets/pluto-day-foreground.webp');}
+  .ph-ridge-night{display:none;}.ph-ridge-day{display:block;}
+  .ph-fog{background:radial-gradient(ellipse at 50% 45%,#fff,#e2edf9 60%,#adbed7);}
+  .ph-destination strong{color:#241b32;-webkit-text-stroke:1px #f3eff8;text-shadow:0 2px 3px #fff9;}
+  .ph-landing-caption{color:#31223f;text-shadow:0 1px 8px #fff,0 1px 3px #fff;}
+  .ph-scrim{background:linear-gradient(#f3f7fc88,transparent);}
+  .ph-image-note{color:#5f4b71;}
+  .ph-booking{background:#fffdfcf5;box-shadow:0 15px 45px #46305e20;border:1px solid #71538233;>button{background:#79529e;}}
+ }
+ .continuous-pluto .hero.pluto-hero:after{background:linear-gradient(transparent,#f3f7fc);}
+ .pluto-world{background:#f3f7fc;
+  .world-terrain{background-image:var(--world-day);filter:none;}
+  .world-atmosphere{background:linear-gradient(#f3f7fc99,transparent 65%,#f3f7fc77);}
+  .world-canvas{filter:none;opacity:1;}
+  .world-grain{opacity:.025;filter:none;}
+ }
+ .continuous-pluto {
+  .world-chapter p,.world-label,.source-coordinate,.world-scan-readout,.framework-copy,.ticket-bottom{text-shadow:none;}
+  h2,h3,.world-chapter h2,.answer-heading h2{color:var(--theme-ink);}
+  .discovery p,.world-chapter p,.world-overview-copy p,.world-chapter-copy p,.answer-explainer p:first-child,.audit-explanation,.tool-intro>p,#tool-detail p,.framework .framework-copy p,#mission-panel p,.faq-list details>div,.site-footer{color:var(--theme-muted);}
+  .answer-heading em{-webkit-text-stroke:1.5px #745092;color:transparent;}
+  .world-link,.arrow-link{color:#44265c;border-color:#7e5d9b55;span{color:#77479a;}}
+  .arrow-link>span{border-color:#7e5d9b55;}
+  .discovery-switch button,.audit-controls button,.tool-node,.mission-tabs button{color:#71647e;}
+  .discovery-switch button[aria-pressed=true],.audit-controls button[aria-pressed=true],.tool-node[aria-selected=true],.mission-tabs button[aria-selected=true]{color:#532a78;border-color:#7e5d9b66;}
+  .audit-controls button[aria-pressed=true]:after{background:#76469d;}
+  .audit-controls,.tool-map,.tool-node,.framework .framework-card,.mission-tabs,.ticket,.faq-list details,.faq-list details:first-child{border-color:var(--theme-line);}
+  .tool-node:hover,.ticket:hover{background:#9668b508;color:#532a78;}
+  .framework .framework-copy h3{color:#352442;}
+  .mission-tabs button span,.mission-tabs button[aria-selected=true] span{color:#775190;}
+  #mission-fields>span{border-color:#82669833;color:#65536f;}
+  .ticket:after{color:#775190;}.ticket-bottom h3{color:#352442;}
+  .faq-list summary{color:#45344f;&:hover{color:#6a2e91;} >span{color:#775190;}}
+  .site-footer{.brand{color:#2b213a;}>button{color:#64516e;}}
+ }
+ .world-nav a span{color:#4a315f;background:#f3f7fce8;border-radius:4px;padding:2px 5px;}.world-nav a i{background:#78548b66;}.world-nav a.on i{background:#65417e;box-shadow:0 0 0 4px #8056a321;}
+ dialog{background:#fcfaff;color:#211c32;border-color:#79558b40;box-shadow:0 24px 90px #34203e33;
+  &::backdrop{background:#eae3f2c9;}
+  h2{color:#2d203b;}>p,>div>p,small,.dialog-close{color:#685574;}
+  label{color:#513e5e;}input{background:#f4eff9;color:#2b1d37;border-color:#86679550;&::placeholder{color:#82728e;}}
+  #resource-details p{border-color:#86679533;color:#65516f;}
+ }
+ .skip{background:#332042;color:#fff;}
+}
+
+// Daylight components use porcelain surfaces and glacial-blue elevation.
+html[data-theme=light] {
+ .hero.pluto-hero .ph-sky{background:radial-gradient(ellipse at 73% 44%,#d5e8fb80,transparent 48%),linear-gradient(135deg,#fff,#edf3fc 55%,#f5effb);}
+ .hero.pluto-hero .ph-sky:after{display:block;opacity:.22;background-image:radial-gradient(1px 1px at 31px 47px,#8b9cb5 70%,transparent),radial-gradient(1px 1px at 127px 83px,#a9b7ca 70%,transparent);background-size:307px 281px,439px 367px;}
+ .hero.pluto-hero .ph-word-one{color:#39234e;-webkit-text-stroke:0;text-shadow:0 1px 18px #ffffffbb;}
+ .hero.pluto-hero .ph-preview{background:linear-gradient(145deg,#fff,#edf3fb);border:1px solid #a6b5ce66;border-radius:14px;box-shadow:0 18px 36px #5b72951a;}
+ .hero.pluto-hero .ph-booking{background:#fffffff2;border:1px solid #bbcade99;border-radius:12px;box-shadow:0 18px 48px #4f6c9230;>label,>div{border-color:#b6c6de66;}input,select{color:#28374d;} >button{background:#77519f;}}
+ .hero.pluto-hero .ph-controls button{background:#f9fcffb8;border-radius:8px;padding-inline:10px;backdrop-filter:blur(10px);}
+ .continuous-pluto{
+  .tool-console{padding:22px;border-radius:24px;border:1px solid #b9c9df66;background:#ffffffc9;box-shadow:0 20px 70px #5e7a9a12;backdrop-filter:blur(12px);}
+  .tool-map{border-top:0;}.tool-node{padding-inline:12px;border-radius:8px;}.tool-node[aria-selected=true]{background:#eee8f9;color:#614087;}.tool-node:hover{background:#eaf0fa;}
+  .framework .framework-card{background:#ffffffd6;border:1px solid #bbcadc66;border-radius:16px;padding:22px;margin-bottom:12px;box-shadow:0 12px 28px #6b83a308;backdrop-filter:blur(10px);}
+  .mission-tabs{gap:10px;border:0;button{padding:10px 14px;border-radius:99px;border:1px solid #aabbcf66;background:#ffffffb8;font-size:18px;}button[aria-selected=true]{color:#65418e;border-color:#a58acb88;background:#eae3f6;}}
+  #mission-panel{background:#ffffffbf;border:1px solid #bbcadc66;border-radius:20px;padding:28px;margin-top:20px;backdrop-filter:blur(12px);}
+  .ticket{background:#ffffffc9;border:1px solid #bbcadc66;border-radius:16px;margin-bottom:12px;padding-inline:22px;padding-right:55px;backdrop-filter:blur(12px);&:after{right:20px;}&:hover{background:#f3ecfc;border-color:#a58acb88;}}
+  .faq-list details{padding-inline:20px;border:1px solid #b5c5d966;border-radius:14px;margin-bottom:12px;background:#ffffffd1;backdrop-filter:blur(12px);}.faq-list summary{padding-right:30px;}
+  .world-overview-copy p,.world-chapter-copy p,.answer-explainer p{color:#52657e;}
+  .answer-heading em{color:#76549b;-webkit-text-stroke:0;}
+ }
+}
+@media(max-width:760px){html[data-theme=light] .continuous-pluto{.tool-console{padding:14px;}.mission-tabs{gap:7px;button{font-size:15px;padding:9px 10px;}}#mission-panel{padding:20px;}.framework .framework-card{padding:20px;}.ticket-bottom h3{font-size:28px;}}}

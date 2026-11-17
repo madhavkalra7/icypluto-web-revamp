@@ -1,7 +1,11 @@
+import { initTheme } from './theme.js';
 import { initPillNavigation } from './navbar.js';
 import './clean.scss';
 import './pluto-hero.scss';
 import './navbar.scss';
+import './discovery.scss';
+import './theme.scss';
+import { setupDiscovery, animateDiscovery } from './discovery.js';
 import { setupTwentyFirstComponents } from './components/21st/adaptations.js';
 import { setupProductStory, animateProductStory } from './product-story.js';
 import { startStarfield } from './starfield.js';
@@ -15,54 +19,25 @@ const $$ = selector => [...document.querySelectorAll(selector)];
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let motion = !reduced.matches;
 try { if (localStorage.getItem('icypluto-motion') === 'off') motion = false; } catch {}
-let context, productTrigger;
+let context;
 let heroExperience, navigation;
 
-function activeScene(index, managed = false) {
-  $$('.scene-nav button').forEach((button, i) => {
-    button.classList.toggle('active', i === index);
-    if (i === index) button.setAttribute('aria-current', 'step');
-    else button.removeAttribute('aria-current');
-  });
-  $$('.product-scene').forEach((scene, i) => { scene.inert = managed && i !== index; });
-}
-
 function configureMotion() {
-  context?.revert(); productTrigger = null;
+  context?.revert();
   document.body.classList.toggle('motion-off', !motion);
-  $('#motion-toggle').textContent = motion ? 'Motion on ◉' : 'Motion off ○';
-  $('#motion-toggle').setAttribute('aria-pressed', String(!motion));
   document.documentElement.style.scrollBehavior = motion ? 'smooth' : 'auto';
-  const horizontalProducts = motion && innerWidth > 1000 && innerHeight > 740;
-  document.body.classList.toggle('natural-products', !horizontalProducts);
-  activeScene(0);
+
   context = gsap.context(() => {
     gsap.to('.scroll-progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
     animateProductStory(motion);
+    animateDiscovery(motion);
     if (!motion) return;
-    if (horizontalProducts) {
-      const journey = $('.product-journey'), track = $('.product-track');
-      const distance = () => Math.max(0, track.scrollWidth - innerWidth);
-      const horizontal = gsap.to(track, { x: () => -distance(), ease: 'none', scrollTrigger: {
-        trigger: journey, start: 'top top', end: () => '+=' + Math.max(innerWidth, distance()), pin: true, scrub: .65,
-        anticipatePin: 1, invalidateOnRefresh: true, onUpdate: self => activeScene(Math.min(2, Math.round(self.progress * 2)), true)
-      } });
-      productTrigger = horizontal.scrollTrigger;
-      gsap.to('.product-scrollbar i', { xPercent: 200, ease: 'none', scrollTrigger: { trigger: journey, start: () => productTrigger.start, end: () => productTrigger.end, scrub: true } });
-    }
     $$('.framework-card, .ticket').forEach(element => gsap.from(element, { y: 22, duration: .7, ease: 'power2.out', scrollTrigger: { trigger: element, start: 'top 92%', once: true } }));
   });
   heroExperience?.refresh(); ScrollTrigger.refresh();
 }
 
-$$('[data-scene]').forEach(button => button.addEventListener('click', () => {
-  const index = Number(button.dataset.scene);
-  if (productTrigger) {
-    const position = productTrigger.start + (productTrigger.end - productTrigger.start) * index / 2 + (index === 0 ? 1 : 0);
-    window.scrollTo({ top: position, behavior: motion ? 'smooth' : 'auto' });
-  } else $$('.product-scene')[index].scrollIntoView({ behavior: motion ? 'smooth' : 'auto', block: 'start' });
-  activeScene(index, Boolean(productTrigger));
-}));
+const discoveryExperience = setupDiscovery(() => motion, () => configureMotion());
 
 // All calls to action work without a backend or hidden subscription.
 const contactDialog = $('#contact-dialog'), resourceDialog = $('#resource-dialog');
@@ -113,7 +88,7 @@ $$('[data-resource]').forEach(button => button.addEventListener('click', () => {
   $('#resource-label').textContent = data.label;
   $('#resource-title').textContent = data.title;
   $('#resource-description').textContent = data.description;
-  $('#resource-details').replaceChildren(...data.details.map(detail => { const p = document.createElement('p'); p.textContent = '↗ ' + detail; return p; }));
+  $('#resource-details').replaceChildren(...data.details.map(detail => { const p = document.createElement('p'); p.textContent = '→ ' + detail; return p; }));
   showDialog(resourceDialog, button);
 }));
 $('#resource-contact').addEventListener('click', () => {
@@ -122,11 +97,6 @@ $('#resource-contact').addEventListener('click', () => {
   openContact(resourceIntent, trigger);
 });
 function closeMenu() { navigation?.close(); }
-$('#motion-toggle').addEventListener('click', () => {
-  motion = !motion;
-  try { localStorage.setItem('icypluto-motion', motion ? 'on' : 'off'); } catch {}
-  configureMotion();
-});
 reduced.addEventListener('change', event => { motion = !event.matches; configureMotion(); });
 let resizeTimer, previousWidth = innerWidth;
 window.addEventListener('resize', () => {
@@ -146,7 +116,8 @@ heroExperience = initPlutoHero(() => motion, ({ focus, website, trigger }) => {
   if (website) document.querySelector('#contact-form [name="website"]').value = website;
 });
 configureMotion();
+const disposeTheme = initTheme();
 document.fonts.ready.then(() => ScrollTrigger.refresh());
 if (import.meta.hot) import.meta.hot.dispose(() => {
-  context?.revert(); heroExperience?.dispose(); navigation?.dispose(); stopStarfield();
+  disposeTheme(); context?.revert(); heroExperience?.dispose(); navigation?.dispose(); stopStarfield(); discoveryExperience?.dispose();
 });

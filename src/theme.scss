@@ -1,0 +1,27 @@
+@use './theme-light.scss';
+:root { --theme-ink:#f0eef4;--theme-muted:#aaa6b5;--theme-line:#d0bdd526;--theme-accent:#bda5df; }
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal;}
+::view-transition-new(root){z-index:2;}
+::view-transition-old(root){z-index:1;}
+.orbit-switch {
+ position:fixed;right:22px;bottom:max(20px,env(safe-area-inset-bottom));z-index:80;display:flex;align-items:center;gap:12px;height:50px;padding:0 17px 0 12px;border-radius:99px;border:1px solid #c0a6e44a;background:#16121ee8;color:#e7dff5;box-shadow:0 8px 32px #0003,inset 0 1px #ffffff14;backdrop-filter:blur(18px);font:800 12px "DM Sans",Arial,sans-serif;letter-spacing:-.02em;transition:box-shadow .25s,transform .25s;
+ &:hover{transform:translateY(-2px);box-shadow:0 8px 32px #9772cc33;}.orbit-switch-art{width:34px;height:34px;position:relative;display:block;}
+ .orbit-switch-track{position:absolute;inset:8px -3px;border:1px solid #bda5df80;border-radius:50%;transform:rotate(-35deg);}
+ .orbit-switch-planet{position:absolute;inset:5px;border-radius:50%;background:#e1d5f6;box-shadow:inset -8px -3px 0 1px #524368,0 0 13px #bda5df26;transition:box-shadow .5s,background .5s;}
+ .orbit-switch-satellite{position:absolute;right:0;top:5px;width:4px;height:4px;border-radius:50%;background:#d8bbff;box-shadow:0 0 7px #c49bff;transition:transform .5s;}
+ &:hover .orbit-switch-satellite{transform:translate(-2px,3px);}
+}
+
+@media(max-width:760px){.orbit-switch{right:14px;bottom:max(14px,env(safe-area-inset-bottom));height:44px;padding:0 12px 0 8px;gap:8px;font-size:11px;}.hero.pluto-hero:not(.ph-exploring) .ph-controls{bottom:10%;}}
+@media(prefers-reduced-motion:reduce){.orbit-switch,.orbit-switch *{transition:none!important;}}
+.motion-off .orbit-switch,.motion-off .orbit-switch *{transition:none!important;}
+
+@media(min-width:761px){.hero.pluto-hero.ph-exploring .ph-controls{right:calc(6% + 145px);}}
+@media(min-width:361px) and (max-width:760px){
+ .orbit-switch{top:18px;bottom:auto;left:calc(50% - 25px);right:auto;width:44px;height:44px;justify-content:center;padding:0;gap:0;box-shadow:none;}
+ .orbit-switch .orbit-switch-label{display:none;}
+}
+@media(max-width:360px){
+ .orbit-switch{top:134px;bottom:auto;right:14px;width:44px;height:44px;justify-content:center;padding:0;gap:0;}
+ .orbit-switch .orbit-switch-label{display:none;}
+}
