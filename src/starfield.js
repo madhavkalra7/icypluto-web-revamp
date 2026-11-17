@@ -1,4 +1,4 @@
-﻿// A dense, fine-grained violet galaxy and subtle moving stars, confined to the hero.
+// A dense, fine-grained violet galaxy and subtle moving stars, confined to the hero.
 export function startStarfield(getMotion) {
   const hero=document.querySelector('.pluto-hero');if(!hero)return()=>{};
   const canvas=document.createElement('canvas');canvas.id='starfield';canvas.setAttribute('aria-hidden','true');hero.querySelector('.ph-sky').after(canvas);
@@ -6,7 +6,8 @@ export function startStarfield(getMotion) {
   let width=0,height=0,particles=[],frame=0,last=0,elapsed=0,visible=true,disposed=false;
   let pointerX=0,pointerY=0;
   const glow=document.createElement('canvas');glow.width=glow.height=64;
-  const galaxy=document.createElement('canvas');
+  // Keep the cached galaxy on its own compositor layer; animate only its transform.
+  const galaxy=document.createElement('canvas');galaxy.className='ph-galaxy';galaxy.setAttribute('aria-hidden','true');canvas.before(galaxy);
   const gc=glow.getContext('2d');if(gc){const g=gc.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(255,255,255,.95)');g.addColorStop(.08,'rgba(255,255,255,.65)');g.addColorStop(.22,'rgba(245,246,255,.16)');g.addColorStop(.5,'rgba(235,235,255,.035)');g.addColorStop(1,'rgba(255,255,255,0)');gc.fillStyle=g;gc.fillRect(0,0,64,64);}
   const hash=(x,y)=>{let n=Math.imul(x,374761393)+Math.imul(y,668265263);n=Math.imul(n^(n>>>13),1274126177);return((n^(n>>>16))>>>0)/4294967295;};
   function noise(x,y){const ix=Math.floor(x),iy=Math.floor(y);let tx=x-ix,ty=y-iy;tx=tx*tx*(3-2*tx);ty=ty*ty*(3-2*ty);const a=hash(ix,iy),b=hash(ix+1,iy),c=hash(ix,iy+1),d=hash(ix+1,iy+1);return(a+(b-a)*tx)*(1-ty)+(c+(d-c)*tx)*ty;}
@@ -42,7 +43,7 @@ export function startStarfield(getMotion) {
     const dt=Math.min((time-last)/1000,.12);last=time;const moving=getMotion();if(moving)elapsed+=dt;
     ctx.clearRect(0,0,width,height);
     const driftX=moving?Math.sin(elapsed*.025)*4+pointerX*2:0,driftY=moving?Math.cos(elapsed*.02)*2:0;
-    ctx.drawImage(galaxy,-8+driftX,-8+driftY,width+16,height+16);
+    galaxy.style.transform=`translate3d(${driftX}px,${driftY}px,0)`;
     for(const p of particles){
       const x=((p.x+(moving?elapsed*p.vx+Math.sin(elapsed*.16+p.phase)*4+pointerX*p.depth*7:0))%(width+40)+width+40)%(width+40)-20;
       const y=((p.y+(moving?elapsed*p.vy+pointerY*p.depth*5:0))%(height+40)+height+40)%(height+40)-20;
@@ -59,5 +60,5 @@ export function startStarfield(getMotion) {
   const io=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)start();else{cancelAnimationFrame(frame);frame=0;}},{threshold:0});io.observe(hero);
   const motion=new MutationObserver(start);motion.observe(document.body,{attributes:true,attributeFilter:['class']});motion.observe(hero,{attributes:true,attributeFilter:['class']});
   hero.addEventListener('pointermove',pointer,{passive:true});document.addEventListener('visibilitychange',visibility);resize();
-  return()=>{disposed=true;cancelAnimationFrame(frame);bounds.disconnect();io.disconnect();motion.disconnect();hero.removeEventListener('pointermove',pointer);document.removeEventListener('visibilitychange',visibility);canvas.remove();};
+  return()=>{disposed=true;cancelAnimationFrame(frame);bounds.disconnect();io.disconnect();motion.disconnect();hero.removeEventListener('pointermove',pointer);document.removeEventListener('visibilitychange',visibility);canvas.remove();galaxy.remove();};
 }
