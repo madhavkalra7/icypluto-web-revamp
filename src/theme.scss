@@ -4,7 +4,7 @@
 ::view-transition-new(root){z-index:2;}
 ::view-transition-old(root){z-index:1;}
 .orbit-switch {
- position:fixed;right:22px;bottom:max(20px,env(safe-area-inset-bottom));z-index:80;display:flex;align-items:center;gap:12px;height:50px;padding:0 17px 0 12px;border-radius:99px;border:1px solid #c0a6e44a;background:#16121ee8;color:#e7dff5;box-shadow:0 8px 32px #0003,inset 0 1px #ffffff14;backdrop-filter:blur(18px);font:800 12px "DM Sans",Arial,sans-serif;letter-spacing:-.02em;transition:box-shadow .25s,transform .25s;
+ position:fixed;right:22px;bottom:max(20px,env(safe-area-inset-bottom));z-index:80;display:flex;align-items:center;gap:12px;height:50px;padding:0 17px 0 12px;border-radius:99px;border:1px solid #c0a6e44a;background:#16121ee8;color:#e7dff5;box-shadow:0 8px 32px #0003,inset 0 1px #ffffff14;backdrop-filter:blur(18px);font:800 12px "Inter",Arial,sans-serif;letter-spacing:-.02em;transition:box-shadow .25s,transform .25s;
  &:hover{transform:translateY(-2px);box-shadow:0 8px 32px #9772cc33;}.orbit-switch-art{width:34px;height:34px;position:relative;display:block;}
  .orbit-switch-track{position:absolute;inset:8px -3px;border:1px solid #bda5df80;border-radius:50%;transform:rotate(-35deg);}
  .orbit-switch-planet{position:absolute;inset:5px;border-radius:50%;background:#e1d5f6;box-shadow:inset -8px -3px 0 1px #524368,0 0 13px #bda5df26;transition:box-shadow .5s,background .5s;}
