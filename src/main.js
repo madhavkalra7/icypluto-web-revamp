@@ -5,11 +5,14 @@ import './pluto-hero.scss';
 import './navbar.scss';
 import './discovery.scss';
 import './theme.scss';
+import './scroll-journey.scss';
+import { initScrollJourney } from './scroll-journey.js';
 import { setupDiscovery, animateDiscovery } from './discovery.js';
 import { setupTwentyFirstComponents } from './components/21st/adaptations.js';
 import { setupProductStory, animateProductStory } from './product-story.js';
 import { startStarfield } from './starfield.js';
 import gsap from 'gsap';
+import Lenis from 'lenis';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initPlutoHero } from './pluto-hero.js';
 
@@ -20,12 +23,21 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let motion = !reduced.matches;
 try { if (localStorage.getItem('icypluto-motion') === 'off') motion = false; } catch {}
 let context;
-let heroExperience, navigation;
+let heroExperience, navigation, lenis;
+
+// Inertial scrolling. The hero's staged wheel handling runs first and wins by calling preventDefault.
+function initSmoothScroll() {
+  lenis = new Lenis({ lerp: .085, wheelMultiplier: .9, smoothWheel: true, anchors: false, virtualScroll: data => !data.event.defaultPrevented && !document.querySelector('dialog[open]') });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(time => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+}
 
 function configureMotion() {
   context?.revert();
   document.body.classList.toggle('motion-off', !motion);
-  document.documentElement.style.scrollBehavior = motion ? 'smooth' : 'auto';
+  document.documentElement.style.scrollBehavior = 'auto';
+  if (lenis) motion ? lenis.start() : lenis.stop();
 
   context = gsap.context(() => {
     gsap.to('.scroll-progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
@@ -115,9 +127,11 @@ heroExperience = initPlutoHero(() => motion, ({ focus, website, trigger }) => {
   openContact(focus + ' demo', trigger);
   if (website) document.querySelector('#contact-form [name="website"]').value = website;
 });
+initSmoothScroll();
+const disposeJourney = initScrollJourney(() => motion);
 configureMotion();
 const disposeTheme = initTheme();
 document.fonts.ready.then(() => ScrollTrigger.refresh());
 if (import.meta.hot) import.meta.hot.dispose(() => {
-  disposeTheme(); context?.revert(); heroExperience?.dispose(); navigation?.dispose(); stopStarfield(); discoveryExperience?.dispose();
+  disposeTheme(); lenis?.destroy(); disposeJourney(); context?.revert(); heroExperience?.dispose(); navigation?.dispose(); stopStarfield(); discoveryExperience?.dispose();
 });

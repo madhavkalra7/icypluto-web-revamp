@@ -86,15 +86,15 @@ html[data-theme=light] {
  .hero.pluto-hero .ph-word-one{color:#39234e;-webkit-text-stroke:0;text-shadow:0 1px 18px #ffffffbb;}
  .hero.pluto-hero .ph-preview{background:linear-gradient(145deg,#fff,#edf3fb);border:1px solid #a6b5ce66;border-radius:14px;box-shadow:0 18px 36px #5b72951a;}
  .hero.pluto-hero .ph-booking{background:#fffffff2;border:1px solid #bbcade99;border-radius:12px;box-shadow:0 18px 48px #4f6c9230;>label,>div{border-color:#b6c6de66;}input,select{color:#28374d;} >button{background:#77519f;}}
- .hero.pluto-hero .ph-controls button{background:#f9fcffb8;border-radius:8px;padding-inline:10px;backdrop-filter:blur(10px);}
+ .hero.pluto-hero .ph-controls button{background:#f9fcffb8;border-radius:8px;padding-inline:10px;}
  .continuous-pluto{
-  .tool-console{padding:22px;border-radius:24px;border:1px solid #b9c9df66;background:#ffffffc9;box-shadow:0 20px 70px #5e7a9a12;backdrop-filter:blur(12px);}
+  .tool-console{padding:22px;border-radius:24px;border:1px solid #b9c9df66;background:#ffffffc9;box-shadow:0 20px 70px #5e7a9a12;}
   .tool-map{border-top:0;}.tool-node{padding-inline:12px;border-radius:8px;}.tool-node[aria-selected=true]{background:#eee8f9;color:#614087;}.tool-node:hover{background:#eaf0fa;}
-  .framework .framework-card{background:#ffffffd6;border:1px solid #bbcadc66;border-radius:16px;padding:22px;margin-bottom:12px;box-shadow:0 12px 28px #6b83a308;backdrop-filter:blur(10px);}
+  .framework .framework-card{background:#ffffffd6;border:1px solid #bbcadc66;border-radius:16px;padding:22px;margin-bottom:12px;box-shadow:0 12px 28px #6b83a308;}
   .mission-tabs{gap:10px;border:0;button{padding:10px 14px;border-radius:99px;border:1px solid #aabbcf66;background:#ffffffb8;font-size:18px;}button[aria-selected=true]{color:#65418e;border-color:#a58acb88;background:#eae3f6;}}
-  #mission-panel{background:#ffffffbf;border:1px solid #bbcadc66;border-radius:20px;padding:28px;margin-top:20px;backdrop-filter:blur(12px);}
-  .ticket{background:#ffffffc9;border:1px solid #bbcadc66;border-radius:16px;margin-bottom:12px;padding-inline:22px;padding-right:55px;backdrop-filter:blur(12px);&:after{right:20px;}&:hover{background:#f3ecfc;border-color:#a58acb88;}}
-  .faq-list details{padding-inline:20px;border:1px solid #b5c5d966;border-radius:14px;margin-bottom:12px;background:#ffffffd1;backdrop-filter:blur(12px);}.faq-list summary{padding-right:30px;}
+  #mission-panel{background:#ffffffbf;border:1px solid #bbcadc66;border-radius:20px;padding:28px;margin-top:20px;}
+  .ticket{background:#ffffffc9;border:1px solid #bbcadc66;border-radius:16px;margin-bottom:12px;padding-inline:22px;padding-right:55px;&:after{right:20px;}&:hover{background:#f3ecfc;border-color:#a58acb88;}}
+  .faq-list details{padding-inline:20px;border:1px solid #b5c5d966;border-radius:14px;margin-bottom:12px;background:#ffffffd1;}.faq-list summary{padding-right:30px;}
   .world-overview-copy p,.world-chapter-copy p,.answer-explainer p{color:#52657e;}
   .answer-heading em{color:#76549b;-webkit-text-stroke:0;}
  }
