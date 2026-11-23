@@ -33,7 +33,7 @@ export function startStarfield(getMotion) {
     layer.globalAlpha=1;
   }
   function start(){if(!frame&&!disposed&&visible&&!document.hidden&&!hero.classList.contains('ph-on-surface')){last=performance.now();frame=requestAnimationFrame(render);}}
-  function resize(){width=hero.clientWidth;height=hero.clientHeight;const dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+  function resize(){width=hero.clientWidth;height=hero.clientHeight;if(!width||!height)return;const dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
     let seed=134340;const random=()=>{seed=seed*16807%2147483647;return(seed-1)/2147483646;};
     buildGalaxy(random,dpr);
     particles=Array.from({length:Math.min(85,Math.max(26,Math.floor(width*height/17000)))},()=>({x:random()*width,y:random()*height,r:.25+random()**2*1.1,alpha:.26+random()*.52,phase:random()*Math.PI*2,depth:.2+random()*.8,vx:(random()-.35)*4,vy:-.8-random()*3.5,flare:random()>.98}));start();

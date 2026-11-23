@@ -14,7 +14,7 @@ export function createContinuousWorld(getMotion) {
     const first=backgroundKey(a),second=backgroundKey(b);
     for(const layer of backgroundLayers){const key=layer.dataset.worldBg;const weight=first===second?(key===first?1:0):(key===first?1-t:key===second?t:0);const opacity=String(weight*.85);if(layer.style.opacity!==opacity)layer.style.opacity=opacity;}
   }
-  let renderer,scene,camera,environment,raf,disposed=false,dirty=true,width=innerWidth,height=innerHeight,anchors=[],introTop=0,pointer={x:0,y:0},last=0,sceneY=scrollY,activeKey=null,qualityFrames=0,qualityTotal=0,renderDpr=Math.min(devicePixelRatio||1,innerWidth<760?1.25:1.5);
+  let lastTravel=null,renderer,scene,camera,environment,raf,disposed=false,dirty=true,width=innerWidth,height=innerHeight,anchors=[],introTop=0,pointer={x:0,y:0},last=0,sceneY=scrollY,activeKey=null,qualityFrames=0,qualityTotal=0,renderDpr=Math.min(devicePixelRatio||1,innerWidth<760?1:1.25);
   const objects=new Map(),geometries=new Set(),materials=new Set(),textures=new Set();
   const geo=g=>(geometries.add(g),g),mat=m=>(materials.add(m),m);
   const dayUniform={value:document.documentElement.dataset.theme==='light'?1:0};
@@ -116,7 +116,7 @@ export function createContinuousWorld(getMotion) {
     for(const [k,g] of objects){const weight=k===a.key?1-t:k===b.key?t:0;const ownIndex=anchors.findIndex(anchor=>anchor.key===k),own=anchors[ownIndex],next=anchors[ownIndex+1];const progress=own?clamp((y-own.top)/Math.max(height,(next?.top??own.top+height)-own.top)):0;pose(g,a.key===b.key&&k===a.key?1:weight,progress,time)}
     if(camera){camera.position.x=getMotion()?pointer.x*.12:0;camera.position.y=getMotion()?pointer.y*.08:0;camera.lookAt(0,0,0)}
     const dust=scene?.getObjectByName('dust');if(dust)dust.position.y=getMotion()?Math.sin(time*.06)*.12:0;
-    host.style.setProperty('--world-travel',`${-Math.min(22,y/400)}px`);
+    const travel=Math.round(Math.min(22,y/400)*4)/4;if(travel!==lastTravel){lastTravel=travel;const tf=`translate3d(0,${-travel}px,0) scale(1.03)`;for(const layer of backgroundLayers)layer.style.transform=tf;}
     if(renderer){renderer.render(scene,camera);host.dataset.ready='true'}dirty=false;last=now;
   }
   function onTheme(){

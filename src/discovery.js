@@ -72,7 +72,7 @@ export function animateDiscovery(enabled){
       lines.forEach((html,i)=>{if(i)heading.append(document.createTextNode(' '));const mask=document.createElement('span'),line=document.createElement('span');mask.className='motion-line';line.className='motion-line-inner';line.innerHTML=html;mask.append(line);heading.append(mask);});
       heading.dataset.revealPrepared='true';
     }
-    gsap.fromTo(heading.querySelectorAll('.motion-line-inner'),{yPercent:108},{yPercent:0,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:heading,start:'top 91%',end:'top 55%',scrub:.45}});
+    gsap.fromTo(heading.querySelectorAll('.motion-line-inner'),{yPercent:108},{yPercent:0,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:heading,start:'top 91%',end:'top 55%',scrub:.15}});
   });
   document.querySelectorAll('.world-overview-copy,.world-chapter-copy,.answer-explainer,.tool-intro,#tool-detail,.framework-copy,#mission-panel').forEach(group=>{
     const elements=[...group.children].filter(element=>element.matches('p,a,button,h3'));
